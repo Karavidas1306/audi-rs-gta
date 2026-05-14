@@ -25,7 +25,6 @@
         .car-card { transition: transform 0.4s ease, box-shadow 0.4s ease; }
         .car-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.8); }
 
-        /* Style για το Dashboard των Κρατήσεων */
         .res-card { background: rgba(24, 24, 27, 0.8); border-left: 4px solid #00e5ff; transition: all 0.3s ease; }
         .res-card:hover { border-left-color: #ff007a; background: rgba(30, 30, 35, 1); }
     </style>
@@ -137,12 +136,6 @@
         </div>
     </div>
 
-    <!-- CAR MODAL -->
-    <div id="carModal" class="fixed inset-0 z-[100] flex items-center justify-center hidden opacity-0 transition-opacity duration-300">
-        <div class="absolute inset-0 bg-black/80 backdrop-blur-md" onclick="window.closeModal()"></div>
-        <div class="relative glass border border-[#00e5ff] p-8 rounded-2xl max-w-lg w-full mx-4 shadow-[0_0_50px_rgba(0,229,255,0.2)] transform scale-95 transition-transform duration-300" id="modalContent"></div>
-    </div>
-
     <div id="testDriveModal" class="fixed inset-0 z-[200] hidden opacity-0 transition-opacity duration-300 flex items-center justify-center bg-black/95 backdrop-blur-xl overflow-y-auto pt-24 pb-10 px-4">
         <div class="relative glass border border-[#ff007a] rounded-2xl w-full max-w-4xl p-8 transform scale-95 transition-transform duration-300 shadow-[0_0_50px_rgba(255,0,122,0.15)] my-auto" id="testDriveContent">
             <button onclick="window.closeTestDriveModal()" class="absolute top-4 right-6 text-zinc-500 hover:text-[#ff007a] text-4xl font-light transition-colors">&times;</button>
@@ -185,6 +178,12 @@
         </div>
     </div>
 
+    <!-- CAR MODAL -->
+    <div id="carModal" class="fixed inset-0 z-[100] flex items-center justify-center hidden opacity-0 transition-opacity duration-300">
+        <div class="absolute inset-0 bg-black/80 backdrop-blur-md" onclick="window.closeModal()"></div>
+        <div class="relative glass border border-[#00e5ff] p-8 rounded-2xl max-w-lg w-full mx-4 shadow-[0_0_50px_rgba(0,229,255,0.2)] transform scale-95 transition-transform duration-300" id="modalContent"></div>
+    </div>
+
     <footer class="glass py-8 border-t border-zinc-800 text-center">
         <p class="uppercase tracking-widest text-xs text-zinc-500 font-bold">© 2026 AUDI RS | HEADQUARTERS: INGOLSTADT, GERMANY</p>
     </footer>
@@ -198,7 +197,6 @@
         const v8EngineSound = new Audio('https://cdn.freesound.org/previews/173/173934_2724244-lq.mp3');
         window.playV8Sound = function() { try { v8EngineSound.currentTime = 0; v8EngineSound.play(); } catch (err) {} };
 
-        // ΔΙΟΡΘΩΣΗ ΤΟΥ ΣΦΑΛΜΑΤΟΣ ΣΤΙΣ ΑΓΚΥΛΕΣ ΕΔΩ:
         window.openAuthModal = () => { document.getElementById('authModal').classList.remove('hidden'); setTimeout(() => { document.getElementById('authModal').classList.remove('opacity-0'); document.getElementById('authContent').classList.add('scale-100'); }, 10); };
         window.closeAuthModal = () => { document.getElementById('authModal').classList.add('opacity-0'); setTimeout(() => { document.getElementById('authModal').classList.add('hidden'); }, 300); };
         
@@ -260,7 +258,6 @@
                 resSection.classList.remove('hidden');
                 document.getElementById('td-email').value = user.email;
                 
-                // Φόρτωση Κρατήσεων Χρήστη
                 loadUserReservations(user.email);
 
                 document.getElementById('logoutBtn').addEventListener('click', () => signOut(auth));
@@ -271,7 +268,7 @@
             }
         });
 
-        // --- ΦΟΡΤΩΣΗ ΚΡΑΤΗΣΕΩΝ (Live Query) ---
+        // --- ΦΟΡΤΩΣΗ ΚΡΑΤΗΣΕΩΝ ---
         async function loadUserReservations(email) {
             const list = document.getElementById('reservations-list');
             const q = query(collection(db, "test_drives"), where("email", "==", email));
@@ -302,7 +299,6 @@
             });
         }
 
-        // Auth Form Logic
         document.getElementById('authForm').addEventListener('submit', (e) => {
             e.preventDefault();
             const email = document.getElementById('authEmail').value;
@@ -314,7 +310,6 @@
             }
         });
 
-        // Test Drive Form Submit
         document.getElementById('tdForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const submitBtn = e.target.querySelector('button[type="submit"]');
@@ -346,13 +341,14 @@
             }
         });
 
-        // Load Cars Grid
+        // ΑΛΛΑΓΗ ΤΗΣ ΦΩΤΟΓΡΑΦΙΑΣ ΓΙΑ ΤΟ RS Q8 ΕΔΩ:
         const cars = [
             { name: "RS6 Avant", hp: "630 PS", type: "Wagon", img: "https://images.unsplash.com/photo-1614200187524-dc4b892acf16?q=60&w=800&auto=format&fit=crop" },
             { name: "RS7 Sportback", hp: "600 PS", type: "Coupe", img: "https://images.unsplash.com/photo-1606152421802-db97b9c7a11b?q=60&w=800&auto=format&fit=crop" },
             { name: "RS e-tron GT", hp: "646 PS", type: "Electric", img: "https://images.unsplash.com/photo-1617814076367-b759c7d7e738?q=60&w=800&auto=format&fit=crop" },
-            { name: "RS Q8", hp: "600 PS", type: "SUV", img: "https://images.unsplash.com/photo-1633511195657-6101c8752328?q=60&w=800&auto=format&fit=crop" }
+            { name: "RS Q8", hp: "600 PS", type: "SUV", img: "https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?q=80&w=800&auto=format&fit=crop" } // ΝΕΑ ΦΩΤΟΓΡΑΦΙΑ (Σκοτεινό SUV)
         ];
+        
         const container = document.getElementById('car-container');
         document.getElementById('loader').remove();
         cars.forEach((car, i) => {
