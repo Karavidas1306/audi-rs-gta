@@ -3,97 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Audi RS | GTA 6 Edition (Interactive)</title>
+    <title>Audi RS | GTA 6 Edition (Live Database)</title>
     
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,700;0,900;1,900&display=swap" rel="stylesheet">
-    
-    <!-- Swiper CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-    
-    <!-- AOS CSS -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
 
     <style>
-        body { 
-            font-family: 'Montserrat', sans-serif; 
-            background-color: #09090b; 
-            color: #fff; 
-            overflow-x: hidden;
-        }
-        
-        .gta-text { 
-            background: linear-gradient(to right, #ff007a, #00e5ff); 
-            -webkit-background-clip: text; 
-            color: transparent; 
-            text-shadow: 0px 0px 30px rgba(255, 0, 122, 0.4);
-        }
-
+        body { font-family: 'Montserrat', sans-serif; background-color: #09090b; color: #fff; overflow-x: hidden; }
+        .gta-text { background: linear-gradient(to right, #ff007a, #00e5ff); -webkit-background-clip: text; color: transparent; text-shadow: 0px 0px 30px rgba(255, 0, 122, 0.4); }
         .gta-border { position: relative; }
-        .gta-border::before {
-            content: "";
-            position: absolute;
-            inset: -2px;
-            background: linear-gradient(45deg, #ff007a, #00e5ff, #ff007a);
-            z-index: -1;
-            filter: blur(10px);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            border-radius: inherit;
-        }
+        .gta-border::before { content: ""; position: absolute; inset: -2px; background: linear-gradient(45deg, #ff007a, #00e5ff, #ff007a); z-index: -1; filter: blur(10px); opacity: 0; transition: opacity 0.3s ease; border-radius: inherit; }
         .gta-border:hover::before { opacity: 1; }
-
-        .glass { 
-            background: rgba(15, 15, 15, 0.6); 
-            backdrop-filter: blur(12px); 
-            -webkit-backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
+        .glass { background: rgba(15, 15, 15, 0.6); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
         .swiper { width: 100%; padding-top: 50px; padding-bottom: 50px; }
         .swiper-slide { width: 350px; height: 500px; border-radius: 20px; }
         @media (min-width: 768px) { .swiper-slide { width: 450px; height: 600px; } }
-        
         .swiper-pagination-bullet { background: #00e5ff; }
         .swiper-pagination-bullet-active { background: #ff007a; box-shadow: 0 0 10px #ff007a; }
-
-        /* Custom Input Styles για τη Φόρμα */
-        .form-input {
-            background-color: rgba(0, 0, 0, 0.5);
-            border: 1px solid #27272a; /* zinc-800 */
-            color: white;
-            padding: 0.75rem 1rem;
-            border-radius: 0.5rem;
-            width: 100%;
-            transition: all 0.3s ease;
-            outline: none;
-        }
+        .form-input { background-color: rgba(0, 0, 0, 0.5); border: 1px solid #27272a; color: white; padding: 0.75rem 1rem; border-radius: 0.5rem; width: 100%; transition: all 0.3s ease; outline: none; }
         .form-input:focus { border-color: #00e5ff; box-shadow: 0 0 15px rgba(0, 229, 255, 0.2); }
         .form-label { display: block; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: #a1a1aa; margin-bottom: 0.25rem; font-weight: bold; }
-        
-        /* Φτιάχνουμε το ημερολόγιο να φαίνεται σκοτεινό */
         ::-webkit-calendar-picker-indicator { filter: invert(1); cursor: pointer; }
     </style>
 </head>
 <body class="antialiased scroll-smooth">
 
-    <!-- Navbar -->
     <nav class="glass fixed w-full top-0 z-50 p-5 transition-all duration-300">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
             <h1 class="text-3xl font-black italic tracking-tighter cursor-pointer" onclick="window.scrollTo(0,0)">AUDI <span class="gta-text">RS</span></h1>
             <ul class="flex space-x-6 hidden md:flex text-sm font-bold uppercase tracking-widest text-zinc-300 items-center">
                 <li><a href="#garage" class="hover:text-[#00e5ff] transition-colors">The Garage</a></li>
                 <li><a href="#specs" class="hover:text-[#ff007a] transition-colors">Specs</a></li>
-                <!-- ΝΕΟ ΚΟΥΜΠΙ TEST DRIVE -->
                 <li><a onclick="openTestDriveModal()" class="cursor-pointer bg-white text-black px-4 py-2 rounded-full hover:bg-[#ff007a] hover:text-white hover:shadow-[0_0_15px_#ff007a] transition-all duration-300 animate-pulse hover:animate-none">TEST DRIVE</a></li>
             </ul>
         </div>
     </nav>
 
-    <!-- Hero Section -->
     <header class="relative h-screen flex items-center justify-center overflow-hidden">
         <div class="absolute inset-0 z-0 opacity-40 bg-[url('https://images.unsplash.com/photo-1580273916550-e323be2ae537?q=80&w=2000&auto=format&fit=crop')] bg-cover bg-center bg-fixed"></div>
         <div class="absolute inset-0 z-0 bg-gradient-to-b from-transparent via-[#09090b]/80 to-[#09090b]"></div>
@@ -109,31 +56,24 @@
         </div>
     </header>
 
-    <!-- Το Γκαράζ (Carousel) -->
     <section class="py-20 relative overflow-hidden pt-32" id="garage">
         <div class="max-w-7xl mx-auto px-4 mb-10" data-aos="fade-right">
             <h2 class="text-4xl md:text-6xl font-black italic uppercase">The <span class="text-[#ff007a]">Syndicate</span></h2>
             <p class="text-zinc-400 mt-2">Επίλεξε το όπλο σου. Κάνε swipe για να δεις τα μοντέλα.</p>
         </div>
-
         <div class="swiper mySwiper" data-aos="fade-up" data-aos-duration="1000">
             <div class="swiper-wrapper" id="car-carousel">
-                <div id="loader" class="text-center w-full py-20 text-[#00e5ff] font-bold animate-pulse">
-                    [ ACCESSING SECURE SERVER... ]
-                </div>
+                <div id="loader" class="text-center w-full py-20 text-[#00e5ff] font-bold animate-pulse">[ ACCESSING SECURE SERVER... ]</div>
             </div>
             <div class="swiper-pagination"></div>
         </div>
     </section>
 
-    <!-- Info Section -->
     <section class="py-32 relative pt-32" id="specs">
         <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
             <div data-aos="fade-right" class="space-y-6">
                 <h3 class="text-5xl font-black italic uppercase">Raw <span class="gta-text">Power</span></h3>
-                <p class="text-zinc-400 text-lg leading-relaxed">
-                    Κάθε μοντέλο RS είναι σχεδιασμένο για να κυριαρχεί. Με διπλά turbo, τετρακίνηση Quattro και τεχνολογία αιχμής, το μόνο που μένει είναι να πατήσεις το γκάζι. Μην κοιτάς πίσω, δεν υπάρχει ανταγωνισμός.
-                </p>
+                <p class="text-zinc-400 text-lg leading-relaxed">Κάθε μοντέλο RS είναι σχεδιασμένο για να κυριαρχεί. Με διπλά turbo, τετρακίνηση Quattro και τεχνολογία αιχμής, το μόνο που μένει είναι να πατήσεις το γκάζι. Μην κοιτάς πίσω, δεν υπάρχει ανταγωνισμός.</p>
                 <div class="flex space-x-4 pt-4">
                     <div class="p-4 glass rounded-xl border-l-4 border-[#00e5ff]">
                         <p class="text-3xl font-black text-white">V8</p>
@@ -151,95 +91,80 @@
         </div>
     </section>
 
-    <!-- Κρυφό Modal (Για τα αυτοκίνητα) -->
+    <!-- CAR MODAL -->
     <div id="carModal" class="fixed inset-0 z-[100] flex items-center justify-center hidden opacity-0 transition-opacity duration-300">
         <div class="absolute inset-0 bg-black/80 backdrop-blur-md" onclick="closeModal()"></div>
-        <div class="relative glass border border-[#00e5ff] p-8 rounded-2xl max-w-lg w-full mx-4 shadow-[0_0_50px_rgba(0,229,255,0.2)] transform scale-95 transition-transform duration-300" id="modalContent">
-        </div>
+        <div class="relative glass border border-[#00e5ff] p-8 rounded-2xl max-w-lg w-full mx-4 shadow-[0_0_50px_rgba(0,229,255,0.2)] transform scale-95 transition-transform duration-300" id="modalContent"></div>
     </div>
 
-    <!-- === ΝΕΟ: TEST DRIVE MODAL (FULL SCREEN) === -->
+    <!-- TEST DRIVE MODAL -->
     <div id="testDriveModal" class="fixed inset-0 z-[200] hidden opacity-0 transition-opacity duration-300 flex items-center justify-center bg-black/95 backdrop-blur-xl overflow-y-auto pt-24 pb-10 px-4">
         <div class="relative glass border border-[#ff007a] rounded-2xl w-full max-w-4xl p-8 transform scale-95 transition-transform duration-300 shadow-[0_0_50px_rgba(255,0,122,0.15)] my-auto" id="testDriveContent">
-            
-            <!-- Κουμπί κλεισίματος -->
             <button onclick="closeTestDriveModal()" class="absolute top-4 right-6 text-zinc-500 hover:text-[#ff007a] text-4xl font-light transition-colors">&times;</button>
-            
             <div class="text-center mb-10">
                 <p class="text-[#00e5ff] tracking-[0.2em] text-sm font-bold uppercase mb-2">Experience The Thrill</p>
                 <h2 class="text-4xl md:text-5xl font-black italic uppercase gta-text">BOOK A TEST DRIVE</h2>
                 <p class="text-zinc-400 mt-2">Συμπλήρωσε τα στοιχεία σου για να επιβεβαιώσουμε το ραντεβού.</p>
             </div>
 
-            <!-- Η Φόρμα -->
-            <form onsubmit="submitTestDrive(event)" id="tdForm" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                
-                <!-- Αριστερή Στήλη: Προσωπικά Στοιχεία -->
+            <!-- Φόρμα: Πρόσθεσα IDs παντού για να τα διαβάζει η βάση -->
+            <form id="tdForm" class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div class="space-y-4">
                     <h4 class="text-white font-bold uppercase border-b border-zinc-800 pb-2 mb-4">Προσωπικα Στοιχεια</h4>
-                    
                     <div class="flex gap-4">
                         <div class="w-1/2">
                             <label class="form-label">Ονομα</label>
-                            <input type="text" required class="form-input" placeholder="π.χ. Γιάννης">
+                            <input type="text" id="td-fname" required class="form-input" placeholder="π.χ. Γιάννης">
                         </div>
                         <div class="w-1/2">
                             <label class="form-label">Επωνυμο</label>
-                            <input type="text" required class="form-input" placeholder="π.χ. Παπαδόπουλος">
+                            <input type="text" id="td-lname" required class="form-input" placeholder="π.χ. Παπαδόπουλος">
                         </div>
                     </div>
-                    
                     <div>
                         <label class="form-label">Διευθυνση</label>
-                        <input type="text" required class="form-input" placeholder="Οδός & Αριθμός">
+                        <input type="text" id="td-address" required class="form-input" placeholder="Οδός & Αριθμός">
                     </div>
-                    
                     <div>
                         <label class="form-label">Τ.Κ. (Ταχυδρομικος Κωδικας)</label>
-                        <input type="text" required class="form-input" placeholder="π.χ. 10431" pattern="[0-9]{5}">
+                        <input type="text" id="td-zip" required class="form-input" placeholder="π.χ. 10431" pattern="[0-9]{5}">
                     </div>
-
                     <div>
                         <label class="form-label">Email</label>
-                        <input type="email" required class="form-input" placeholder="email@example.com">
+                        <input type="email" id="td-email" required class="form-input" placeholder="email@example.com">
                     </div>
                 </div>
 
-                <!-- Δεξιά Στήλη: Επικοινωνία & Κράτηση -->
                 <div class="space-y-4">
                     <h4 class="text-white font-bold uppercase border-b border-zinc-800 pb-2 mb-4">Στοιχεια Κρατησης</h4>
-                    
                     <div class="flex gap-4">
                         <div class="w-1/2">
                             <label class="form-label">Κινητο</label>
-                            <input type="tel" required class="form-input" placeholder="69..." pattern="[0-9]{10}">
+                            <input type="tel" id="td-mobile" required class="form-input" placeholder="69..." pattern="[0-9]{10}">
                         </div>
                         <div class="w-1/2">
                             <label class="form-label">Σταθερο</label>
-                            <input type="tel" class="form-input" placeholder="(Προαιρετικό)">
+                            <input type="tel" id="td-phone" class="form-input" placeholder="(Προαιρετικό)">
                         </div>
                     </div>
-
                     <div>
                         <label class="form-label">Επιλογη Μοντελου</label>
-                        <select required class="form-input appearance-none bg-zinc-900">
+                        <select id="td-model" required class="form-input appearance-none bg-zinc-900">
                             <option value="" disabled selected>Επίλεξε το τέρας σου...</option>
-                            <option value="rs6">Audi RS6 Avant Performance</option>
-                            <option value="rs7">Audi RS7 Sportback</option>
-                            <option value="etron">Audi RS e-tron GT</option>
-                            <option value="rsq8">Audi RS Q8</option>
+                            <option value="Audi RS6 Avant Performance">Audi RS6 Avant Performance</option>
+                            <option value="Audi RS7 Sportback">Audi RS7 Sportback</option>
+                            <option value="Audi RS e-tron GT">Audi RS e-tron GT</option>
+                            <option value="Audi RS Q8">Audi RS Q8</option>
                         </select>
                     </div>
-
                     <div class="flex gap-4">
                         <div class="w-1/2">
                             <label class="form-label">Ημερομηνια</label>
-                            <!-- Βάζουμε min date τη σημερινή μέσω JS (ή απλά type date) -->
                             <input type="date" required id="datePicker" class="form-input">
                         </div>
                         <div class="w-1/2">
                             <label class="form-label">Ωρα (Διαθεσιμες)</label>
-                            <select required class="form-input bg-zinc-900">
+                            <select id="td-time" required class="form-input bg-zinc-900">
                                 <option value="" disabled selected>Επίλεξε...</option>
                                 <option value="10:00">10:00 - 11:00</option>
                                 <option value="12:00">12:00 - 13:00</option>
@@ -250,8 +175,6 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- Κουμπί Submit που πιάνει όλο το πλάτος -->
                 <div class="col-span-1 md:col-span-2 mt-6">
                     <button type="submit" class="w-full bg-white text-black font-black text-lg uppercase tracking-widest px-6 py-4 rounded-xl hover:bg-[#00e5ff] hover:text-black transition-all shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:shadow-[0_0_30px_#00e5ff]">
                         ΕΠΙΒΕΒΑΙΩΣΗ TEST DRIVE
@@ -265,98 +188,51 @@
         <p class="uppercase tracking-widest text-xs text-zinc-500 font-bold">© 2026 AUDI RS | POWERED BY AUDI.</p>
     </footer>
 
-    <!-- Scripts -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     
+    <!-- ΛΟΓΙΚΗ ΓΡΑΦΙΚΩΝ -->
     <script>
         AOS.init({ once: true, offset: 100 });
-
-        // Περιορισμός Ημερομηνίας: Να μην μπορούν να βάλουν χθεσινή μέρα στο Test Drive
         const today = new Date().toISOString().split('T')[0];
         document.getElementById("datePicker").setAttribute('min', today);
 
-        // --- Лογική για το CAR MODAL (Garage) ---
-        function openModal(carName, carHp) {
+        window.openModal = function(carName, carHp) {
             const modal = document.getElementById('carModal');
             const content = document.getElementById('modalContent');
-            
             content.innerHTML = `
                 <div class="text-center">
                     <p class="text-[#00e5ff] tracking-[0.2em] text-xs font-bold uppercase mb-2">Vehicle Specs Checked</p>
                     <h2 class="text-4xl font-black italic uppercase mb-4 gta-text">TARGET LOCKED</h2>
-                    <p class="text-zinc-300 text-lg mb-6">
-                        Επέλεξες το <span class="text-white font-black">${carName}</span> με ${carHp}. Έτοιμος να το κάνεις δικό σου;
-                    </p>
-                    <button onclick="closeModal(); openTestDriveModal();" class="w-full bg-[#ff007a] text-white font-black uppercase tracking-widest px-6 py-4 rounded-xl hover:bg-white hover:text-black transition-colors shadow-[0_0_20px_rgba(255,0,122,0.4)]">
-                        BOOK TEST DRIVE NOW
-                    </button>
+                    <p class="text-zinc-300 text-lg mb-6">Επέλεξες το <span class="text-white font-black">${carName}</span> με ${carHp}. Έτοιμος να το κάνεις δικό σου;</p>
+                    <button onclick="window.closeModal(); window.openTestDriveModal();" class="w-full bg-[#ff007a] text-white font-black uppercase tracking-widest px-6 py-4 rounded-xl hover:bg-white hover:text-black transition-colors shadow-[0_0_20px_rgba(255,0,122,0.4)]">BOOK TEST DRIVE NOW</button>
                 </div>
             `;
-            
             modal.classList.remove('hidden');
-            setTimeout(() => {
-                modal.classList.remove('opacity-0');
-                content.classList.remove('scale-95');
-                content.classList.add('scale-100');
-            }, 10);
+            setTimeout(() => { modal.classList.remove('opacity-0'); content.classList.remove('scale-95'); content.classList.add('scale-100'); }, 10);
         }
 
-        function closeModal() {
+        window.closeModal = function() {
             const modal = document.getElementById('carModal');
             const content = document.getElementById('modalContent');
-            
-            modal.classList.add('opacity-0');
-            content.classList.remove('scale-100');
-            content.classList.add('scale-95');
+            modal.classList.add('opacity-0'); content.classList.remove('scale-100'); content.classList.add('scale-95');
             setTimeout(() => modal.classList.add('hidden'), 300);
         }
 
-        // --- ΝΕΑ Лογική για το TEST DRIVE MODAL ---
-        function openTestDriveModal() {
+        window.openTestDriveModal = function() {
             const modal = document.getElementById('testDriveModal');
             const content = document.getElementById('testDriveContent');
-            
             modal.classList.remove('hidden');
-            setTimeout(() => {
-                modal.classList.remove('opacity-0');
-                content.classList.remove('scale-95');
-                content.classList.add('scale-100');
-            }, 10);
+            setTimeout(() => { modal.classList.remove('opacity-0'); content.classList.remove('scale-95'); content.classList.add('scale-100'); }, 10);
         }
 
-        function closeTestDriveModal() {
+        window.closeTestDriveModal = function() {
             const modal = document.getElementById('testDriveModal');
             const content = document.getElementById('testDriveContent');
-            
-            modal.classList.add('opacity-0');
-            content.classList.remove('scale-100');
-            content.classList.add('scale-95');
+            modal.classList.add('opacity-0'); content.classList.remove('scale-100'); content.classList.add('scale-95');
             setTimeout(() => modal.classList.add('hidden'), 300);
         }
 
-        // Λειτουργία όταν πατάει Submit στη Φόρμα
-        function submitTestDrive(e) {
-            e.preventDefault(); // Σταματάει το refresh της σελίδας
-            
-            const content = document.getElementById('testDriveContent');
-            
-            // Εφέ επιτυχίας (Αλλάζει το περιεχόμενο του modal)
-            content.innerHTML = `
-                <div class="text-center py-10">
-                    <div class="text-[#00e5ff] text-6xl mb-4 animate-bounce">✓</div>
-                    <h2 class="text-4xl md:text-5xl font-black italic uppercase gta-text mb-4">RESERVATION CONFIRMED</h2>
-                    <p class="text-zinc-300 text-lg mb-8 max-w-md mx-auto">
-                        Το ραντεβού σου καταχωρήθηκε επιτυχώς στα συστήματά μας. Ένας εκπρόσωπος της Audi θα επικοινωνήσει σύντομα μαζί σου για την τελική επιβεβαίωση.
-                    </p>
-                    <button onclick="closeTestDriveModal(); setTimeout(() => location.reload(), 500);" class="bg-white text-black font-black uppercase tracking-widest px-8 py-3 rounded-full hover:bg-[#ff007a] hover:text-white transition-all">
-                        ΕΠΙΣΤΡΟΦΗ ΣΤΗ ΒΑΣΗ
-                    </button>
-                </div>
-            `;
-        }
-
-        // --- Φόρτωση Αυτοκινήτων ---
         const fetchCars = () => {
             return new Promise((resolve) => {
                 const rsCars = [
@@ -373,11 +249,9 @@
             fetchCars().then(cars => {
                 const carousel = document.getElementById('car-carousel');
                 document.getElementById('loader').remove();
-
                 cars.forEach(car => {
                     const slide = document.createElement('div');
                     slide.className = "swiper-slide gta-border glass overflow-hidden flex flex-col group cursor-grab active:cursor-grabbing";
-                    
                     slide.innerHTML = `
                         <div class="h-1/2 w-full overflow-hidden relative">
                             <div class="absolute inset-0 bg-gradient-to-b from-transparent to-[#0f0f0f] z-10"></div>
@@ -390,30 +264,82 @@
                                 <p class="text-zinc-400 text-sm">${car.desc}</p>
                             </div>
                             <div class="flex justify-between items-end border-t border-zinc-800 pt-4 mt-4">
-                                <div>
-                                    <p class="text-[10px] text-zinc-500 uppercase tracking-widest">Power</p>
-                                    <p class="text-xl font-black text-white">${car.hp}</p>
-                                </div>
-                                <button onclick="openModal('${car.name}', '${car.hp}')" class="bg-white text-black text-xs font-black uppercase px-4 py-2 rounded-full hover:bg-[#00e5ff] hover:text-black transition-all shadow-[0_0_15px_rgba(255,255,255,0.2)] hover:shadow-[0_0_20px_#00e5ff]">
-                                    Select
-                                </button>
+                                <div><p class="text-[10px] text-zinc-500 uppercase tracking-widest">Power</p><p class="text-xl font-black text-white">${car.hp}</p></div>
+                                <button onclick="window.openModal('${car.name}', '${car.hp}')" class="bg-white text-black text-xs font-black uppercase px-4 py-2 rounded-full hover:bg-[#00e5ff] hover:text-black transition-all shadow-[0_0_15px_rgba(255,255,255,0.2)]">Select</button>
                             </div>
                         </div>
                     `;
                     carousel.appendChild(slide);
                 });
-
-                new Swiper(".mySwiper", {
-                    effect: "coverflow",
-                    grabCursor: true,
-                    centeredSlides: true,
-                    slidesPerView: "auto",
-                    coverflowEffect: { rotate: 20, stretch: 0, depth: 200, modifier: 1, slideShadows: true },
-                    pagination: { el: ".swiper-pagination", clickable: true },
-                    loop: true,
-                    autoplay: { delay: 3000, disableOnInteraction: false }
-                });
+                new Swiper(".mySwiper", { effect: "coverflow", grabCursor: true, centeredSlides: true, slidesPerView: "auto", coverflowEffect: { rotate: 20, stretch: 0, depth: 200, modifier: 1, slideShadows: true }, pagination: { el: ".swiper-pagination", clickable: true }, loop: true, autoplay: { delay: 3000, disableOnInteraction: false } });
             });
+        });
+    </script>
+
+    <!-- ΛΟΓΙΚΗ ΒΑΣΗΣ ΔΕΔΟΜΕΝΩΝ (FIREBASE) -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
+        import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
+
+        // Ο δικός σου κώδικας από το screenshot
+        const firebaseConfig = {
+            apiKey: "AIzaSyCCpJRa9NjMAWXzW0i8FyM-PlPE99C6-Rg",
+            authDomain: "karavidas-1828b.firebaseapp.com",
+            projectId: "karavidas-1828b",
+            storageBucket: "karavidas-1828b.firebasestorage.app",
+            messagingSenderId: "406343820746",
+            appId: "1:406343820746:web:7864276df0051982519b33",
+            measurementId: "G-DDRTHRGG6D"
+        };
+
+        // Αρχικοποίηση Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // Όταν πατάει "Επιβεβαίωση" στη φόρμα
+        document.getElementById('tdForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const submitBtn = e.target.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerText;
+            submitBtn.innerText = "ΑΠΟΣΤΟΛΗ...";
+            submitBtn.disabled = true;
+
+            try {
+                // Γράφουμε τα στοιχεία στο Firebase στον πίνακα "test_drives"
+                await addDoc(collection(db, "test_drives"), {
+                    firstName: document.getElementById('td-fname').value,
+                    lastName: document.getElementById('td-lname').value,
+                    address: document.getElementById('td-address').value,
+                    zipCode: document.getElementById('td-zip').value,
+                    email: document.getElementById('td-email').value,
+                    mobile: document.getElementById('td-mobile').value,
+                    phone: document.getElementById('td-phone').value,
+                    carModel: document.getElementById('td-model').value,
+                    date: document.getElementById('datePicker').value,
+                    time: document.getElementById('td-time').value,
+                    timestamp: serverTimestamp() // Αποθηκεύει και την ακριβή ώρα που έγινε η κράτηση!
+                });
+
+                // Αν όλα πάνε καλά, δείχνουμε το μήνυμα επιτυχίας
+                document.getElementById('testDriveContent').innerHTML = `
+                    <div class="text-center py-10">
+                        <div class="text-[#00e5ff] text-6xl mb-4 animate-bounce">✓</div>
+                        <h2 class="text-4xl md:text-5xl font-black italic uppercase gta-text mb-4">RESERVATION CONFIRMED</h2>
+                        <p class="text-zinc-300 text-lg mb-8 max-w-md mx-auto">
+                            Το ραντεβού καταχωρήθηκε επιτυχώς στη βάση δεδομένων σου! Έλεγξε το Firebase Console.
+                        </p>
+                        <button onclick="window.location.reload()" class="bg-white text-black font-black uppercase tracking-widest px-8 py-3 rounded-full hover:bg-[#ff007a] hover:text-white transition-all">
+                            ΕΠΙΣΤΡΟΦΗ
+                        </button>
+                    </div>
+                `;
+            } catch (error) {
+                console.error("Σφάλμα Firebase: ", error);
+                alert("Σφάλμα: Η βάση δεδομένων απέρριψε την εγγραφή. Έχεις δημιουργήσει το Firestore Database στο Firebase panel και το έβαλες σε Test Mode;");
+                submitBtn.innerText = originalText;
+                submitBtn.disabled = false;
+            }
         });
     </script>
 </body>
