@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Audi RS | GTA 6 Edition (Zero Lag & Keyboard)</title>
+    <title>Audi RS | GTA 6 Edition (Ultra Performance & Click)</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,700;0,900;1,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
@@ -16,12 +16,24 @@
         .gta-border { position: relative; }
         .gta-border::before { content: ""; position: absolute; inset: -2px; background: linear-gradient(45deg, #ff007a, #00e5ff, #ff007a); z-index: -1; filter: blur(10px); opacity: 0; transition: opacity 0.3s ease; border-radius: inherit; }
         .gta-border:hover::before { opacity: 1; }
+        
+        /* Το Glass εφέ μένει ΜΟΝΟ για τα στατικά στοιχεία (Navbar, Modals) */
         .glass { background: rgba(15, 15, 15, 0.6); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
+        
+        /* ULTIMATE PERFORMANCE TWEAKS ΓΙΑ ΤΟ SWIPER */
         .swiper { width: 100%; padding-top: 50px; padding-bottom: 50px; }
-        .swiper-slide { width: 350px; height: 500px; border-radius: 20px; }
+        .swiper-slide { 
+            width: 350px; 
+            height: 500px; 
+            border-radius: 20px; 
+            background-color: #18181b; /* Σκούρο Solid αντί για Glass για μηδενικό lag */
+            will-change: transform; /* Λέμε στην κάρτα γραφικών να αναλάβει την κίνηση */
+            -webkit-transform: translate3d(0,0,0);
+        }
         @media (min-width: 768px) { .swiper-slide { width: 450px; height: 600px; } }
         .swiper-pagination-bullet { background: #00e5ff; }
         .swiper-pagination-bullet-active { background: #ff007a; box-shadow: 0 0 10px #ff007a; }
+        
         .form-input { background-color: rgba(0, 0, 0, 0.5); border: 1px solid #27272a; color: white; padding: 0.75rem 1rem; border-radius: 0.5rem; width: 100%; transition: all 0.3s ease; outline: none; }
         .form-input:focus { border-color: #00e5ff; box-shadow: 0 0 15px rgba(0, 229, 255, 0.2); }
         .form-label { display: block; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: #a1a1aa; margin-bottom: 0.25rem; font-weight: bold; }
@@ -59,7 +71,7 @@
     <section class="py-20 relative overflow-hidden pt-32" id="garage">
         <div class="max-w-7xl mx-auto px-4 mb-10" data-aos="fade-right">
             <h2 class="text-4xl md:text-6xl font-black italic uppercase">The <span class="text-[#ff007a]">Syndicate</span></h2>
-            <p class="text-zinc-400 mt-2">Χρησιμοποίησε τα <span class="text-white font-bold tracking-widest border border-zinc-700 px-2 rounded">ΒΕΛΑΚΙΑ</span> (← →) ή κάνε swipe για πλοήγηση.</p>
+            <p class="text-zinc-400 mt-2">Χρησιμοποίησε τα <span class="text-white font-bold tracking-widest border border-zinc-700 px-2 rounded">ΒΕΛΑΚΙΑ</span> (← →) ή <strong>ΠΑΤΑ ΠΑΝΩ ΣΤΙΣ ΦΩΤΟΓΡΑΦΙΕΣ</strong> για πλοήγηση.</p>
         </div>
         <div class="swiper mySwiper" data-aos="fade-up" data-aos-duration="1000">
             <div class="swiper-wrapper" id="car-carousel">
@@ -108,7 +120,7 @@
             </div>
 
             <form id="tdForm" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- ΦΟΡΜΑ (Παραμένει ίδια) -->
+                <!-- ΦΟΡΜΑ (Ίδια και λειτουργική) -->
                 <div class="space-y-4">
                     <h4 class="text-white font-bold uppercase border-b border-zinc-800 pb-2 mb-4">Προσωπικα Στοιχεια</h4>
                     <div class="flex gap-4">
@@ -191,7 +203,7 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     
-    <!-- ΛΟΓΙΚΗ ΓΡΑΦΙΚΩΝ, ΧΡΩΜΑΤΩΝ ΚΑΙ KEYBOARD -->
+    <!-- ΛΟΓΙΚΗ ΓΡΑΦΙΚΩΝ, ΧΡΩΜΑΤΩΝ ΚΑΙ ΝΕΟ SWIPER PERFORMANCE -->
     <script>
         AOS.init({ once: true, offset: 100 });
         const today = new Date().toISOString().split('T')[0];
@@ -233,8 +245,9 @@
             setTimeout(() => modal.classList.add('hidden'), 300);
         }
 
-        // ΛΟΓΙΚΗ ΑΛΛΑΓΗΣ ΧΡΩΜΑΤΟΣ (Πιο άμεση μετάβαση)
-        window.changeCarColor = function(element, colorIndex) {
+        // Αλλαγή Χρώματος ΜΕ event.stopPropagation() για να μην κάνει "κλικ" στο Carousel
+        window.changeCarColor = function(event, element, colorIndex) {
+            event.stopPropagation(); // Σταματάει το κλικ από το να περάσει στη φωτογραφία (για να μην γυρίσει κάρτα)
             const slide = element.closest('.swiper-slide');
             const imageStack = slide.querySelectorAll('.car-image-layer');
             
@@ -255,29 +268,29 @@
                     { 
                         name: "RS6 Avant", hp: "630 PS", type: "Wagon", desc: "Το απόλυτο boss car. Χωράει τη λεία, χάνει την αστυνομία.", 
                         colors: [
-                            { hex: "#5a5a5a", url: "https://images.unsplash.com/photo-1614200187524-dc4b892acf16?q=60&w=800&auto=format&fit=crop" }, // Grey
-                            { hex: "#0a0a0a", url: "https://images.unsplash.com/photo-1611821064430-0d40220268a2?q=60&w=800&auto=format&fit=crop" }  // Black
+                            { hex: "#5a5a5a", url: "https://images.unsplash.com/photo-1614200187524-dc4b892acf16?q=60&w=800&auto=format&fit=crop" },
+                            { hex: "#0a0a0a", url: "https://images.unsplash.com/photo-1611821064430-0d40220268a2?q=60&w=800&auto=format&fit=crop" }
                         ]
                     },
                     { 
                         name: "RS7 Sportback", hp: "600 PS", type: "Coupe", desc: "Νυχτερινές κούρσες στο κέντρο. Το αμάξι του επαγγελματία.", 
                         colors: [
-                            { hex: "#0a0a0a", url: "https://images.unsplash.com/photo-1606152421802-db97b9c7a11b?q=60&w=800&auto=format&fit=crop" }, // Black
-                            { hex: "#da291c", url: "https://images.unsplash.com/photo-1610880846497-7257b23f6128?q=60&w=800&auto=format&fit=crop" }  // Red
+                            { hex: "#0a0a0a", url: "https://images.unsplash.com/photo-1606152421802-db97b9c7a11b?q=60&w=800&auto=format&fit=crop" },
+                            { hex: "#da291c", url: "https://images.unsplash.com/photo-1610880846497-7257b23f6128?q=60&w=800&auto=format&fit=crop" }
                         ]
                     },
                     { 
                         name: "RS e-tron GT", hp: "646 PS", type: "Electric", desc: "Αθόρυβος δολοφόνος. Προσπερνάει πριν καν ακουστεί.", 
                         colors: [
-                            { hex: "#1e3a8a", url: "https://images.unsplash.com/photo-1617814076367-b759c7d7e738?q=60&w=800&auto=format&fit=crop" }, // Blue
-                            { hex: "#ffffff", url: "https://images.unsplash.com/photo-1620853406248-261ce38f658c?q=60&w=800&auto=format&fit=crop" }  // White
+                            { hex: "#1e3a8a", url: "https://images.unsplash.com/photo-1617814076367-b759c7d7e738?q=60&w=800&auto=format&fit=crop" },
+                            { hex: "#ffffff", url: "https://images.unsplash.com/photo-1620853406248-261ce38f658c?q=60&w=800&auto=format&fit=crop" }
                         ]
                     },
                     { 
                         name: "RS Q8", hp: "600 PS", type: "SUV", desc: "Οδοστρωτήρας. Όταν ο δρόμος τελειώνει, αυτό συνεχίζει.", 
                         colors: [
-                            { hex: "#0a4f35", url: "https://images.unsplash.com/photo-1633511195657-6101c8752328?q=60&w=800&auto=format&fit=crop" }, // Green
-                            { hex: "#0a0a0a", url: "https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?q=60&w=800&auto=format&fit=crop" }  // Black SUV
+                            { hex: "#0a4f35", url: "https://images.unsplash.com/photo-1633511195657-6101c8752328?q=60&w=800&auto=format&fit=crop" },
+                            { hex: "#0a0a0a", url: "https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?q=60&w=800&auto=format&fit=crop" }
                         ]
                     }
                 ];
@@ -291,24 +304,25 @@
                 document.getElementById('loader').remove();
                 
                 cars.forEach(car => {
-                    // FORCE PRELOAD IMAGES: Αναγκάζουμε τον browser να κατεβάσει τα πάντα στο παρασκήνιο ΑΜΕΣΩΣ!
+                    // Preloading
                     car.colors.forEach(color => {
                         const img = new Image();
                         img.src = color.url;
                     });
 
                     const slide = document.createElement('div');
-                    slide.className = "swiper-slide gta-border glass overflow-hidden flex flex-col group cursor-grab active:cursor-grabbing";
+                    // Αφαιρέσαμε την κλάση "glass" για να μην κολλάει
+                    slide.className = "swiper-slide gta-border overflow-hidden flex flex-col group cursor-pointer"; 
                     
-                    // Αλλάξαμε το duration-500 σε duration-200 για πιο γρήγορο "σβήσιμο/άναμμα" των εικόνων
                     let imagesStackHtml = car.colors.map((color, index) => `
                         <img src="${color.url}" alt="${car.name} ${index}" 
                              class="car-image-layer absolute inset-0 w-full h-full object-cover transition-all duration-200 ease-in-out group-hover:scale-110 
                              ${index === 0 ? 'opacity-100 z-10' : 'opacity-0 z-0'}">
                     `).join('');
 
+                    // Προστέθηκε το "event" μέσα στο onclick
                     let colorSwatches = car.colors.map((color, index) => `
-                        <div onclick="changeCarColor(this, ${index})" 
+                        <div onclick="changeCarColor(event, this, ${index})" 
                              class="w-5 h-5 rounded-full cursor-pointer border border-zinc-500 hover:border-white hover:scale-125 transition-all shadow-[0_0_10px_rgba(255,255,255,0.1)]" 
                              style="background-color: ${color.hex};">
                         </div>
@@ -333,26 +347,31 @@
 
                             <div class="flex justify-between items-end border-t border-zinc-800 pt-4 mt-2">
                                 <div><p class="text-[10px] text-zinc-500 uppercase tracking-widest">Power</p><p class="text-xl font-black text-white">${car.hp}</p></div>
-                                <button onclick="window.openModal('${car.name}', '${car.hp}')" class="bg-white text-black text-xs font-black uppercase px-4 py-2 rounded-full hover:bg-[#00e5ff] hover:text-black transition-all shadow-[0_0_15px_rgba(255,255,255,0.2)]">Select</button>
+                                <button onclick="event.stopPropagation(); window.openModal('${car.name}', '${car.hp}')" class="bg-white text-black text-xs font-black uppercase px-4 py-2 rounded-full hover:bg-[#00e5ff] hover:text-black transition-all shadow-[0_0_15px_rgba(255,255,255,0.2)] relative z-50">Select</button>
                             </div>
                         </div>
                     `;
                     carousel.appendChild(slide);
                 });
 
-                // ΑΡΧΙΚΟΠΟΙΗΣΗ SWIPER ΜΕ ΠΡΟΣΘΗΚΗ KEYBOARD (ΒΕΛΑΚΙΑ)
+                // PERFORMANCE SWIPER INIT
                 new Swiper(".mySwiper", { 
                     effect: "coverflow", 
                     grabCursor: true, 
                     centeredSlides: true, 
                     slidesPerView: "auto", 
-                    keyboard: {
-                        enabled: true, // ΕΝΕΡΓΟΠΟΙΗΣΗ KEYBOARD!
-                    },
-                    coverflowEffect: { rotate: 20, stretch: 0, depth: 200, modifier: 1, slideShadows: true }, 
+                    slideToClickedSlide: true, // <-- ΑΥΤΟ ΚΑΝΕΙ ΤΟ ΚΛΙΚ ΣΤΙΣ ΦΩΤΟΓΡΑΦΙΕΣ ΝΑ ΓΥΡΝΑΕΙ ΤΗΝ ΚΑΡΤΑ
+                    keyboard: { enabled: true },
+                    coverflowEffect: { 
+                        rotate: 20, 
+                        stretch: 0, 
+                        depth: 200, 
+                        modifier: 1, 
+                        slideShadows: false // <-- ΣΒΗΣΤΗΚΑΝ ΟΙ ΒΑΡΙΕΣ ΣΚΙΕΣ ΠΟΥ ΚΟΛΛΟΥΣΑΝ ΤΗΝ ΚΑΡΤΑ ΓΡΑΦΙΚΩΝ
+                    }, 
                     pagination: { el: ".swiper-pagination", clickable: true }, 
                     loop: true, 
-                    autoplay: { delay: 4000, disableOnInteraction: true } // Αν πατήσει βελάκι ο χρήστης, σταματάει το αυτόματο γύρισμα.
+                    autoplay: { delay: 4000, disableOnInteraction: true } 
                 });
             });
         });
