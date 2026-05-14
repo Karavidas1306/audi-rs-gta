@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Audi RS | GTA 6 Edition (Leonida Customs)</title>
+    <title>Audi RS | GTA 6 Edition (Performance Patch)</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,700;0,900;1,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
@@ -26,9 +26,6 @@
         .form-input:focus { border-color: #00e5ff; box-shadow: 0 0 15px rgba(0, 229, 255, 0.2); }
         .form-label { display: block; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: #a1a1aa; margin-bottom: 0.25rem; font-weight: bold; }
         ::-webkit-calendar-picker-indicator { filter: invert(1); cursor: pointer; }
-        
-        /* Εφέ για την αλλαγή φωτογραφίας */
-        .car-image { transition: opacity 0.3s ease-in-out; }
     </style>
 </head>
 <body class="antialiased scroll-smooth">
@@ -89,7 +86,7 @@
                 </div>
             </div>
             <div data-aos="fade-left" class="relative gta-border rounded-2xl">
-                <img src="https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?q=80&w=1000&auto=format&fit=crop" alt="Audi Engine" class="rounded-2xl shadow-2xl relative z-10 w-full object-cover h-[400px]">
+                <img src="https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?q=60&w=800&auto=format&fit=crop" alt="Audi Engine" class="rounded-2xl shadow-2xl relative z-10 w-full object-cover h-[400px]">
             </div>
         </div>
     </section>
@@ -111,6 +108,7 @@
             </div>
 
             <form id="tdForm" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Τα πεδία της φόρμας παρέμειναν ίδια... -->
                 <div class="space-y-4">
                     <h4 class="text-white font-bold uppercase border-b border-zinc-800 pb-2 mb-4">Προσωπικα Στοιχεια</h4>
                     <div class="flex gap-4">
@@ -193,7 +191,7 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     
-    <!-- ΛΟΓΙΚΗ ΓΡΑΦΙΚΩΝ ΚΑΙ ΧΡΩΜΑΤΩΝ -->
+    <!-- ΛΟΓΙΚΗ ΓΡΑΦΙΚΩΝ (ΜΕ PRELOADING & CROSSFADING) -->
     <script>
         AOS.init({ once: true, offset: 100 });
         const today = new Date().toISOString().split('T')[0];
@@ -235,48 +233,53 @@
             setTimeout(() => modal.classList.add('hidden'), 300);
         }
 
-        // Η συνάρτηση που αλλάζει τα χρώματα όταν πατάς τα κυκλάκια
-        window.changeCarColor = function(element, newImageUrl) {
-            // Βρίσκουμε την εικόνα που ανήκει στην ίδια κάρτα
-            const imgElement = element.closest('.swiper-slide').querySelector('.car-image');
+        // ΝΕΑ ΛΟΓΙΚΗ ΓΙΑ ΤΑ ΧΡΩΜΑΤΑ (PRELOADED IMAGES)
+        window.changeCarColor = function(element, colorIndex) {
+            const slide = element.closest('.swiper-slide');
+            const imageStack = slide.querySelectorAll('.car-image-layer');
             
-            // Κάνουμε ένα ωραίο εφέ "ξεθωριάσματος" πριν αλλάξει
-            imgElement.style.opacity = 0;
-            setTimeout(() => {
-                imgElement.src = newImageUrl;
-                imgElement.style.opacity = 1;
-            }, 150);
+            // Κρύβουμε όλες τις εικόνες και εμφανίζουμε μόνο αυτή που πατήθηκε
+            imageStack.forEach((img, idx) => {
+                if(idx === colorIndex) {
+                    img.classList.remove('opacity-0', 'z-0');
+                    img.classList.add('opacity-100', 'z-10');
+                } else {
+                    img.classList.remove('opacity-100', 'z-10');
+                    img.classList.add('opacity-0', 'z-0');
+                }
+            });
         }
 
         const fetchCars = () => {
             return new Promise((resolve) => {
+                // Πρόσθεσα &q=60&w=800 στα URL για να είναι πιο ελαφριές οι εικόνες χωρίς να χάνουν πολλή ποιότητα
                 const rsCars = [
                     { 
                         name: "RS6 Avant", hp: "630 PS", type: "Wagon", desc: "Το απόλυτο boss car. Χωράει τη λεία, χάνει την αστυνομία.", 
                         colors: [
-                            { hex: "#5a5a5a", url: "https://images.unsplash.com/photo-1614200187524-dc4b892acf16?q=80&w=1000&auto=format&fit=crop" }, // Grey
-                            { hex: "#0a0a0a", url: "https://images.unsplash.com/photo-1611821064430-0d40220268a2?q=80&w=1000&auto=format&fit=crop" }  // Black
+                            { hex: "#5a5a5a", url: "https://images.unsplash.com/photo-1614200187524-dc4b892acf16?q=60&w=800&auto=format&fit=crop" }, // Grey
+                            { hex: "#0a0a0a", url: "https://images.unsplash.com/photo-1611821064430-0d40220268a2?q=60&w=800&auto=format&fit=crop" }  // Black
                         ]
                     },
                     { 
                         name: "RS7 Sportback", hp: "600 PS", type: "Coupe", desc: "Νυχτερινές κούρσες στο κέντρο. Το αμάξι του επαγγελματία.", 
                         colors: [
-                            { hex: "#0a0a0a", url: "https://images.unsplash.com/photo-1606152421802-db97b9c7a11b?q=80&w=1000&auto=format&fit=crop" }, // Black
-                            { hex: "#da291c", url: "https://images.unsplash.com/photo-1610880846497-7257b23f6128?q=80&w=1000&auto=format&fit=crop" }  // Red
+                            { hex: "#0a0a0a", url: "https://images.unsplash.com/photo-1606152421802-db97b9c7a11b?q=60&w=800&auto=format&fit=crop" }, // Black
+                            { hex: "#da291c", url: "https://images.unsplash.com/photo-1610880846497-7257b23f6128?q=60&w=800&auto=format&fit=crop" }  // Red
                         ]
                     },
                     { 
                         name: "RS e-tron GT", hp: "646 PS", type: "Electric", desc: "Αθόρυβος δολοφόνος. Προσπερνάει πριν καν ακουστεί.", 
                         colors: [
-                            { hex: "#1e3a8a", url: "https://images.unsplash.com/photo-1617814076367-b759c7d7e738?q=80&w=1000&auto=format&fit=crop" }, // Blue
-                            { hex: "#ffffff", url: "https://images.unsplash.com/photo-1620853406248-261ce38f658c?q=80&w=1000&auto=format&fit=crop" }  // White
+                            { hex: "#1e3a8a", url: "https://images.unsplash.com/photo-1617814076367-b759c7d7e738?q=60&w=800&auto=format&fit=crop" }, // Blue
+                            { hex: "#ffffff", url: "https://images.unsplash.com/photo-1620853406248-261ce38f658c?q=60&w=800&auto=format&fit=crop" }  // White
                         ]
                     },
                     { 
                         name: "RS Q8", hp: "600 PS", type: "SUV", desc: "Οδοστρωτήρας. Όταν ο δρόμος τελειώνει, αυτό συνεχίζει.", 
                         colors: [
-                            { hex: "#0a4f35", url: "https://images.unsplash.com/photo-1633511195657-6101c8752328?q=80&w=1000&auto=format&fit=crop" }, // Green
-                            { hex: "#0a0a0a", url: "https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?q=80&w=1000&auto=format&fit=crop" }  // Black SUV
+                            { hex: "#0a4f35", url: "https://images.unsplash.com/photo-1633511195657-6101c8752328?q=60&w=800&auto=format&fit=crop" }, // Green
+                            { hex: "#0a0a0a", url: "https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?q=60&w=800&auto=format&fit=crop" }  // Black SUV
                         ]
                     }
                 ];
@@ -288,13 +291,21 @@
             fetchCars().then(cars => {
                 const carousel = document.getElementById('car-carousel');
                 document.getElementById('loader').remove();
+                
                 cars.forEach(car => {
                     const slide = document.createElement('div');
                     slide.className = "swiper-slide gta-border glass overflow-hidden flex flex-col group cursor-grab active:cursor-grabbing";
                     
-                    // Δημιουργούμε τα κυκλάκια των χρωμάτων
-                    let colorSwatches = car.colors.map(color => `
-                        <div onclick="changeCarColor(this, '${color.url}')" 
+                    // Δημιουργούμε ΌΛΕΣ τις εικόνες από την αρχή (Preloading)
+                    let imagesStackHtml = car.colors.map((color, index) => `
+                        <img src="${color.url}" alt="${car.name} ${index}" 
+                             class="car-image-layer absolute inset-0 w-full h-full object-cover transition-all duration-500 ease-in-out group-hover:scale-110 
+                             ${index === 0 ? 'opacity-100 z-10' : 'opacity-0 z-0'}">
+                    `).join('');
+
+                    // Δημιουργούμε τα κυκλάκια των χρωμάτων, περνώντας πλέον το index της εικόνας
+                    let colorSwatches = car.colors.map((color, index) => `
+                        <div onclick="changeCarColor(this, ${index})" 
                              class="w-5 h-5 rounded-full cursor-pointer border border-zinc-500 hover:border-white hover:scale-125 transition-all shadow-[0_0_10px_rgba(255,255,255,0.1)]" 
                              style="background-color: ${color.hex};">
                         </div>
@@ -302,17 +313,19 @@
 
                     slide.innerHTML = `
                         <div class="h-1/2 w-full overflow-hidden relative bg-zinc-900">
-                            <div class="absolute inset-0 bg-gradient-to-b from-transparent to-[#0f0f0f] z-10 pointer-events-none"></div>
-                            <img src="${car.colors[0].url}" alt="${car.name}" class="car-image w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
-                            <span class="absolute top-4 right-4 z-20 bg-[#ff007a] text-white text-xs font-black uppercase px-3 py-1 rounded-full shadow-[0_0_10px_#ff007a]">${car.type}</span>
+                            <div class="absolute inset-0 bg-gradient-to-b from-transparent to-[#0f0f0f] z-20 pointer-events-none"></div>
+                            
+                            <!-- Εδώ μπαίνει το stack των εικόνων -->
+                            ${imagesStackHtml}
+                            
+                            <span class="absolute top-4 right-4 z-30 bg-[#ff007a] text-white text-xs font-black uppercase px-3 py-1 rounded-full shadow-[0_0_10px_#ff007a]">${car.type}</span>
                         </div>
-                        <div class="p-6 h-1/2 flex flex-col justify-between relative z-20 bg-[#0f0f0f]">
+                        <div class="p-6 h-1/2 flex flex-col justify-between relative z-30 bg-[#0f0f0f]">
                             <div>
                                 <h3 class="text-3xl font-black italic uppercase mb-2 gta-text">${car.name}</h3>
                                 <p class="text-zinc-400 text-sm mb-3">${car.desc}</p>
                                 
-                                <!-- Εδώ μπαίνουν τα χρώματα -->
-                                <div class="flex gap-2 items-center">
+                                <div class="flex gap-2 items-center relative z-40">
                                     <span class="text-[10px] text-zinc-500 uppercase tracking-widest mr-2">Paintjob:</span>
                                     ${colorSwatches}
                                 </div>
@@ -336,7 +349,6 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
         import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
 
-        // Τα δικά σου κλειδιά!
         const firebaseConfig = {
             apiKey: "AIzaSyCCpJRa9NjMAWXzW0i8FyM-PlPE99C6-Rg",
             authDomain: "karavidas-1828b.firebaseapp.com",
