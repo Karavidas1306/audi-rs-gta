@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Audi RS | GTA 6 Edition (V8 Sound)</title>
+    <title>Audi RS | GTA 6 Edition (V8 Sound Fixed)</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,700;0,900;1,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
@@ -42,12 +42,11 @@
 
     <nav class="glass fixed w-full top-0 z-50 p-5 transition-all duration-300">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <!-- ΠΡΟΣΤΕΘΗΚΕ Ο ΗΧΟΣ ΣΤΟ ΛΟΓΟΤΥΠΟ -->
-            <h1 class="text-3xl font-black italic tracking-tighter cursor-pointer hover:scale-105 transition-transform" onclick="playV8Sound(); window.scrollTo(0,0)">AUDI <span class="gta-text">RS</span></h1>
+            <h1 class="text-3xl font-black italic tracking-tighter cursor-pointer hover:scale-105 transition-transform" onclick="window.playV8Sound(); window.scrollTo(0,0)">AUDI <span class="gta-text">RS</span></h1>
             <ul class="flex space-x-6 hidden md:flex text-sm font-bold uppercase tracking-widest text-zinc-300 items-center">
                 <li><a href="#garage" class="hover:text-[#00e5ff] transition-colors">The Garage</a></li>
                 <li><a href="#specs" class="hover:text-[#ff007a] transition-colors">Specs</a></li>
-                <li><a onclick="openTestDriveModal()" class="cursor-pointer bg-white text-black px-4 py-2 rounded-full hover:bg-[#ff007a] hover:text-white hover:shadow-[0_0_15px_#ff007a] transition-all duration-300 animate-pulse hover:animate-none">TEST DRIVE</a></li>
+                <li><a onclick="window.openTestDriveModal()" class="cursor-pointer bg-white text-black px-4 py-2 rounded-full hover:bg-[#ff007a] hover:text-white hover:shadow-[0_0_15px_#ff007a] transition-all duration-300 animate-pulse hover:animate-none">TEST DRIVE</a></li>
             </ul>
         </div>
     </nav>
@@ -61,8 +60,7 @@
             <h2 class="text-7xl md:text-9xl font-black italic uppercase mb-2 gta-text leading-none">RULE THE<br>STREETS</h2>
             <p class="text-xl text-zinc-300 max-w-xl mx-auto mt-6 font-medium">Η νέα γενιά επιδόσεων είναι εδώ. Δεν οδηγείς απλά. Κάνεις takeover.</p>
             
-            <!-- ΠΡΟΣΤΕΘΗΚΕ Ο ΗΧΟΣ ΣΤΟ ΚΟΥΜΠΙ -->
-            <button onclick="playV8Sound(); document.getElementById('garage').scrollIntoView({behavior: 'smooth'})" class="mt-10 px-10 py-4 bg-white text-black font-black uppercase tracking-widest rounded-full hover:scale-110 hover:shadow-[0_0_30px_rgba(255,255,255,0.5)] transition-all duration-300">
+            <button onclick="window.playV8Sound(); document.getElementById('garage').scrollIntoView({behavior: 'smooth'})" class="mt-10 px-10 py-4 bg-white text-black font-black uppercase tracking-widest rounded-full hover:scale-110 hover:shadow-[0_0_30px_rgba(255,255,255,0.5)] transition-all duration-300">
                 Start Engine
             </button>
         </div>
@@ -104,14 +102,14 @@
 
     <!-- CAR MODAL -->
     <div id="carModal" class="fixed inset-0 z-[100] flex items-center justify-center hidden opacity-0 transition-opacity duration-300">
-        <div class="absolute inset-0 bg-black/80 backdrop-blur-md" onclick="closeModal()"></div>
+        <div class="absolute inset-0 bg-black/80 backdrop-blur-md" onclick="window.closeModal()"></div>
         <div class="relative glass border border-[#00e5ff] p-8 rounded-2xl max-w-lg w-full mx-4 shadow-[0_0_50px_rgba(0,229,255,0.2)] transform scale-95 transition-transform duration-300" id="modalContent"></div>
     </div>
 
     <!-- TEST DRIVE MODAL -->
     <div id="testDriveModal" class="fixed inset-0 z-[200] hidden opacity-0 transition-opacity duration-300 flex items-center justify-center bg-black/95 backdrop-blur-xl overflow-y-auto pt-24 pb-10 px-4">
         <div class="relative glass border border-[#ff007a] rounded-2xl w-full max-w-4xl p-8 transform scale-95 transition-transform duration-300 shadow-[0_0_50px_rgba(255,0,122,0.15)] my-auto" id="testDriveContent">
-            <button onclick="closeTestDriveModal()" class="absolute top-4 right-6 text-zinc-500 hover:text-[#ff007a] text-4xl font-light transition-colors">&times;</button>
+            <button onclick="window.closeTestDriveModal()" class="absolute top-4 right-6 text-zinc-500 hover:text-[#ff007a] text-4xl font-light transition-colors">&times;</button>
             <div class="text-center mb-10">
                 <p class="text-[#00e5ff] tracking-[0.2em] text-sm font-bold uppercase mb-2">Experience The Thrill</p>
                 <h2 class="text-4xl md:text-5xl font-black italic uppercase gta-text">BOOK A TEST DRIVE</h2>
@@ -202,25 +200,26 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     
-    <!-- ΛΟΓΙΚΗ ΓΡΑΦΙΚΩΝ, ΗΧΟΥ ΚΑΙ SWIPER -->
+    <!-- ΛΟΓΙΚΗ ΓΡΑΦΙΚΩΝ ΚΑΙ ΗΧΟΥ (PRELOADED AUDIO) -->
     <script>
         AOS.init({ once: true, offset: 100 });
         const today = new Date().toISOString().split('T')[0];
         document.getElementById("datePicker").setAttribute('min', today);
 
-        // --- ΝΕΟ: ΗΧΟΣ V8 KINHTHPA ---
-        function playV8Sound() {
-            // Χρησιμοποιούμε αρχείο από τη δωρεάν βιβλιοθήκη ήχων της Google
-            const v8Sound = new Audio('https://actions.google.com/sounds/v1/transportation/car_revving_and_idling.ogg');
-            v8Sound.volume = 0.5; // Ρυθμισμένο στο 50% για να μην ξεκουφάνει κανέναν
-            
-            // Το try-catch προστατεύει το site σε περίπτωση που ο browser του χρήστη μπλοκάρει αυτόματους ήχους
+        // --- PRELOAD ΤΟΥ ΗΧΟΥ (.mp3 για απόλυτη συμβατότητα) ---
+        const v8EngineSound = new Audio('https://cdn.freesound.org/previews/173/173934_2724244-lq.mp3');
+        v8EngineSound.volume = 0.6; // Ένταση στο 60%
+        v8EngineSound.load(); // Το κατεβάζει αόρατα με το που ανοίξει η σελίδα
+
+        // Η λειτουργία που τρέχει όταν πατάς τα κουμπιά
+        window.playV8Sound = function() {
             try {
-                v8Sound.play();
+                v8EngineSound.currentTime = 0; // Αν το πατήσεις 2η φορά, το πάει από την αρχή
+                v8EngineSound.play();
             } catch (err) {
-                console.log("Sound autoplay prevented by browser");
+                console.log("Audio play blocked by browser policies.");
             }
-        }
+        };
 
         window.openModal = function(carName, carHp) {
             const modal = document.getElementById('carModal');
@@ -331,7 +330,7 @@
                     `).join('');
 
                     let colorSwatches = car.colors.map((color, index) => `
-                        <div onclick="changeCarColor(event, this, ${index})" 
+                        <div onclick="window.changeCarColor(event, this, ${index})" 
                              class="w-5 h-5 rounded-full cursor-pointer border border-zinc-500 hover:border-white hover:scale-125 transition-all shadow-[0_0_10px_rgba(255,255,255,0.1)]" 
                              style="background-color: ${color.hex};">
                         </div>
