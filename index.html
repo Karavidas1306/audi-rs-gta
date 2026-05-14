@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Audi RS | GTA 6 Edition (Live Database)</title>
+    <title>Audi RS | GTA 6 Edition (Leonida Customs)</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,700;0,900;1,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
@@ -26,6 +26,9 @@
         .form-input:focus { border-color: #00e5ff; box-shadow: 0 0 15px rgba(0, 229, 255, 0.2); }
         .form-label { display: block; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: #a1a1aa; margin-bottom: 0.25rem; font-weight: bold; }
         ::-webkit-calendar-picker-indicator { filter: invert(1); cursor: pointer; }
+        
+        /* Εφέ για την αλλαγή φωτογραφίας */
+        .car-image { transition: opacity 0.3s ease-in-out; }
     </style>
 </head>
 <body class="antialiased scroll-smooth">
@@ -107,7 +110,6 @@
                 <p class="text-zinc-400 mt-2">Συμπλήρωσε τα στοιχεία σου για να επιβεβαιώσουμε το ραντεβού.</p>
             </div>
 
-            <!-- Φόρμα: Πρόσθεσα IDs παντού για να τα διαβάζει η βάση -->
             <form id="tdForm" class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div class="space-y-4">
                     <h4 class="text-white font-bold uppercase border-b border-zinc-800 pb-2 mb-4">Προσωπικα Στοιχεια</h4>
@@ -191,7 +193,7 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     
-    <!-- ΛΟΓΙΚΗ ΓΡΑΦΙΚΩΝ -->
+    <!-- ΛΟΓΙΚΗ ΓΡΑΦΙΚΩΝ ΚΑΙ ΧΡΩΜΑΤΩΝ -->
     <script>
         AOS.init({ once: true, offset: 100 });
         const today = new Date().toISOString().split('T')[0];
@@ -233,13 +235,50 @@
             setTimeout(() => modal.classList.add('hidden'), 300);
         }
 
+        // Η συνάρτηση που αλλάζει τα χρώματα όταν πατάς τα κυκλάκια
+        window.changeCarColor = function(element, newImageUrl) {
+            // Βρίσκουμε την εικόνα που ανήκει στην ίδια κάρτα
+            const imgElement = element.closest('.swiper-slide').querySelector('.car-image');
+            
+            // Κάνουμε ένα ωραίο εφέ "ξεθωριάσματος" πριν αλλάξει
+            imgElement.style.opacity = 0;
+            setTimeout(() => {
+                imgElement.src = newImageUrl;
+                imgElement.style.opacity = 1;
+            }, 150);
+        }
+
         const fetchCars = () => {
             return new Promise((resolve) => {
                 const rsCars = [
-                    { name: "RS6 Avant", hp: "630 PS", type: "Wagon", desc: "Το απόλυτο boss car. Χωράει τη λεία, χάνει την αστυνομία.", img: "https://images.unsplash.com/photo-1614200187524-dc4b892acf16?q=80&w=1000&auto=format&fit=crop" },
-                    { name: "RS7 Sportback", hp: "600 PS", type: "Coupe", desc: "Νυχτερινές κούρσες στο κέντρο. Το αμάξι του επαγγελματία.", img: "https://images.unsplash.com/photo-1606152421802-db97b9c7a11b?q=80&w=1000&auto=format&fit=crop" },
-                    { name: "RS e-tron GT", hp: "646 PS", type: "Electric", desc: "Αθόρυβος δολοφόνος. Προσπερνάει πριν καν ακουστεί.", img: "https://images.unsplash.com/photo-1617814076367-b759c7d7e738?q=80&w=1000&auto=format&fit=crop" },
-                    { name: "RS Q8", hp: "600 PS", type: "SUV", desc: "Οδοστρωτήρας. Όταν ο δρόμος τελειώνει, αυτό συνεχίζει.", img: "https://images.unsplash.com/photo-1633511195657-6101c8752328?q=80&w=1000&auto=format&fit=crop" }
+                    { 
+                        name: "RS6 Avant", hp: "630 PS", type: "Wagon", desc: "Το απόλυτο boss car. Χωράει τη λεία, χάνει την αστυνομία.", 
+                        colors: [
+                            { hex: "#5a5a5a", url: "https://images.unsplash.com/photo-1614200187524-dc4b892acf16?q=80&w=1000&auto=format&fit=crop" }, // Grey
+                            { hex: "#0a0a0a", url: "https://images.unsplash.com/photo-1611821064430-0d40220268a2?q=80&w=1000&auto=format&fit=crop" }  // Black
+                        ]
+                    },
+                    { 
+                        name: "RS7 Sportback", hp: "600 PS", type: "Coupe", desc: "Νυχτερινές κούρσες στο κέντρο. Το αμάξι του επαγγελματία.", 
+                        colors: [
+                            { hex: "#0a0a0a", url: "https://images.unsplash.com/photo-1606152421802-db97b9c7a11b?q=80&w=1000&auto=format&fit=crop" }, // Black
+                            { hex: "#da291c", url: "https://images.unsplash.com/photo-1610880846497-7257b23f6128?q=80&w=1000&auto=format&fit=crop" }  // Red
+                        ]
+                    },
+                    { 
+                        name: "RS e-tron GT", hp: "646 PS", type: "Electric", desc: "Αθόρυβος δολοφόνος. Προσπερνάει πριν καν ακουστεί.", 
+                        colors: [
+                            { hex: "#1e3a8a", url: "https://images.unsplash.com/photo-1617814076367-b759c7d7e738?q=80&w=1000&auto=format&fit=crop" }, // Blue
+                            { hex: "#ffffff", url: "https://images.unsplash.com/photo-1620853406248-261ce38f658c?q=80&w=1000&auto=format&fit=crop" }  // White
+                        ]
+                    },
+                    { 
+                        name: "RS Q8", hp: "600 PS", type: "SUV", desc: "Οδοστρωτήρας. Όταν ο δρόμος τελειώνει, αυτό συνεχίζει.", 
+                        colors: [
+                            { hex: "#0a4f35", url: "https://images.unsplash.com/photo-1633511195657-6101c8752328?q=80&w=1000&auto=format&fit=crop" }, // Green
+                            { hex: "#0a0a0a", url: "https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?q=80&w=1000&auto=format&fit=crop" }  // Black SUV
+                        ]
+                    }
                 ];
                 setTimeout(() => resolve(rsCars), 800);
             });
@@ -252,18 +291,34 @@
                 cars.forEach(car => {
                     const slide = document.createElement('div');
                     slide.className = "swiper-slide gta-border glass overflow-hidden flex flex-col group cursor-grab active:cursor-grabbing";
+                    
+                    // Δημιουργούμε τα κυκλάκια των χρωμάτων
+                    let colorSwatches = car.colors.map(color => `
+                        <div onclick="changeCarColor(this, '${color.url}')" 
+                             class="w-5 h-5 rounded-full cursor-pointer border border-zinc-500 hover:border-white hover:scale-125 transition-all shadow-[0_0_10px_rgba(255,255,255,0.1)]" 
+                             style="background-color: ${color.hex};">
+                        </div>
+                    `).join('');
+
                     slide.innerHTML = `
-                        <div class="h-1/2 w-full overflow-hidden relative">
-                            <div class="absolute inset-0 bg-gradient-to-b from-transparent to-[#0f0f0f] z-10"></div>
-                            <img src="${car.img}" alt="${car.name}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-125">
+                        <div class="h-1/2 w-full overflow-hidden relative bg-zinc-900">
+                            <div class="absolute inset-0 bg-gradient-to-b from-transparent to-[#0f0f0f] z-10 pointer-events-none"></div>
+                            <img src="${car.colors[0].url}" alt="${car.name}" class="car-image w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
                             <span class="absolute top-4 right-4 z-20 bg-[#ff007a] text-white text-xs font-black uppercase px-3 py-1 rounded-full shadow-[0_0_10px_#ff007a]">${car.type}</span>
                         </div>
                         <div class="p-6 h-1/2 flex flex-col justify-between relative z-20 bg-[#0f0f0f]">
                             <div>
                                 <h3 class="text-3xl font-black italic uppercase mb-2 gta-text">${car.name}</h3>
-                                <p class="text-zinc-400 text-sm">${car.desc}</p>
+                                <p class="text-zinc-400 text-sm mb-3">${car.desc}</p>
+                                
+                                <!-- Εδώ μπαίνουν τα χρώματα -->
+                                <div class="flex gap-2 items-center">
+                                    <span class="text-[10px] text-zinc-500 uppercase tracking-widest mr-2">Paintjob:</span>
+                                    ${colorSwatches}
+                                </div>
                             </div>
-                            <div class="flex justify-between items-end border-t border-zinc-800 pt-4 mt-4">
+
+                            <div class="flex justify-between items-end border-t border-zinc-800 pt-4 mt-2">
                                 <div><p class="text-[10px] text-zinc-500 uppercase tracking-widest">Power</p><p class="text-xl font-black text-white">${car.hp}</p></div>
                                 <button onclick="window.openModal('${car.name}', '${car.hp}')" class="bg-white text-black text-xs font-black uppercase px-4 py-2 rounded-full hover:bg-[#00e5ff] hover:text-black transition-all shadow-[0_0_15px_rgba(255,255,255,0.2)]">Select</button>
                             </div>
@@ -271,7 +326,7 @@
                     `;
                     carousel.appendChild(slide);
                 });
-                new Swiper(".mySwiper", { effect: "coverflow", grabCursor: true, centeredSlides: true, slidesPerView: "auto", coverflowEffect: { rotate: 20, stretch: 0, depth: 200, modifier: 1, slideShadows: true }, pagination: { el: ".swiper-pagination", clickable: true }, loop: true, autoplay: { delay: 3000, disableOnInteraction: false } });
+                new Swiper(".mySwiper", { effect: "coverflow", grabCursor: true, centeredSlides: true, slidesPerView: "auto", coverflowEffect: { rotate: 20, stretch: 0, depth: 200, modifier: 1, slideShadows: true }, pagination: { el: ".swiper-pagination", clickable: true }, loop: true, autoplay: { delay: 4000, disableOnInteraction: false } });
             });
         });
     </script>
@@ -281,7 +336,7 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
         import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
 
-        // Ο δικός σου κώδικας από το screenshot
+        // Τα δικά σου κλειδιά!
         const firebaseConfig = {
             apiKey: "AIzaSyCCpJRa9NjMAWXzW0i8FyM-PlPE99C6-Rg",
             authDomain: "karavidas-1828b.firebaseapp.com",
@@ -292,11 +347,9 @@
             measurementId: "G-DDRTHRGG6D"
         };
 
-        // Αρχικοποίηση Firebase
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        // Όταν πατάει "Επιβεβαίωση" στη φόρμα
         document.getElementById('tdForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             
@@ -306,7 +359,6 @@
             submitBtn.disabled = true;
 
             try {
-                // Γράφουμε τα στοιχεία στο Firebase στον πίνακα "test_drives"
                 await addDoc(collection(db, "test_drives"), {
                     firstName: document.getElementById('td-fname').value,
                     lastName: document.getElementById('td-lname').value,
@@ -318,10 +370,9 @@
                     carModel: document.getElementById('td-model').value,
                     date: document.getElementById('datePicker').value,
                     time: document.getElementById('td-time').value,
-                    timestamp: serverTimestamp() // Αποθηκεύει και την ακριβή ώρα που έγινε η κράτηση!
+                    timestamp: serverTimestamp() 
                 });
 
-                // Αν όλα πάνε καλά, δείχνουμε το μήνυμα επιτυχίας
                 document.getElementById('testDriveContent').innerHTML = `
                     <div class="text-center py-10">
                         <div class="text-[#00e5ff] text-6xl mb-4 animate-bounce">✓</div>
@@ -336,7 +387,7 @@
                 `;
             } catch (error) {
                 console.error("Σφάλμα Firebase: ", error);
-                alert("Σφάλμα: Η βάση δεδομένων απέρριψε την εγγραφή. Έχεις δημιουργήσει το Firestore Database στο Firebase panel και το έβαλες σε Test Mode;");
+                alert("Σφάλμα κατά την αποστολή δεδομένων.");
                 submitBtn.innerText = originalText;
                 submitBtn.disabled = false;
             }
