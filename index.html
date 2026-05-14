@@ -26,8 +26,8 @@
             width: 350px; 
             height: 500px; 
             border-radius: 20px; 
-            background-color: #18181b; /* Σκούρο Solid αντί για Glass για μηδενικό lag */
-            will-change: transform; /* Λέμε στην κάρτα γραφικών να αναλάβει την κίνηση */
+            background-color: #18181b; 
+            will-change: transform; 
             -webkit-transform: translate3d(0,0,0);
         }
         @media (min-width: 768px) { .swiper-slide { width: 450px; height: 600px; } }
@@ -71,7 +71,7 @@
     <section class="py-20 relative overflow-hidden pt-32" id="garage">
         <div class="max-w-7xl mx-auto px-4 mb-10" data-aos="fade-right">
             <h2 class="text-4xl md:text-6xl font-black italic uppercase">The <span class="text-[#ff007a]">Syndicate</span></h2>
-            <p class="text-zinc-400 mt-2"> <span class="text-white font-bold tracking-widest border border-zinc-700 px-2 rounded"></span>  <strong></strong> </p>
+            <!-- Αφαιρέθηκε το κουτάκι και το κείμενο με τις οδηγίες από εδώ -->
         </div>
         <div class="swiper mySwiper" data-aos="fade-up" data-aos-duration="1000">
             <div class="swiper-wrapper" id="car-carousel">
@@ -245,9 +245,9 @@
             setTimeout(() => modal.classList.add('hidden'), 300);
         }
 
-        // Αλλαγή Χρώματος ΜΕ event.stopPropagation() για να μην κάνει "κλικ" στο Carousel
+        // Αλλαγή Χρώματος ΜΕ event.stopPropagation()
         window.changeCarColor = function(event, element, colorIndex) {
-            event.stopPropagation(); // Σταματάει το κλικ από το να περάσει στη φωτογραφία (για να μην γυρίσει κάρτα)
+            event.stopPropagation(); 
             const slide = element.closest('.swiper-slide');
             const imageStack = slide.querySelectorAll('.car-image-layer');
             
@@ -304,14 +304,12 @@
                 document.getElementById('loader').remove();
                 
                 cars.forEach(car => {
-                    // Preloading
                     car.colors.forEach(color => {
                         const img = new Image();
                         img.src = color.url;
                     });
 
                     const slide = document.createElement('div');
-                    // Αφαιρέσαμε την κλάση "glass" για να μην κολλάει
                     slide.className = "swiper-slide gta-border overflow-hidden flex flex-col group cursor-pointer"; 
                     
                     let imagesStackHtml = car.colors.map((color, index) => `
@@ -320,7 +318,6 @@
                              ${index === 0 ? 'opacity-100 z-10' : 'opacity-0 z-0'}">
                     `).join('');
 
-                    // Προστέθηκε το "event" μέσα στο onclick
                     let colorSwatches = car.colors.map((color, index) => `
                         <div onclick="changeCarColor(event, this, ${index})" 
                              class="w-5 h-5 rounded-full cursor-pointer border border-zinc-500 hover:border-white hover:scale-125 transition-all shadow-[0_0_10px_rgba(255,255,255,0.1)]" 
@@ -360,14 +357,14 @@
                     grabCursor: true, 
                     centeredSlides: true, 
                     slidesPerView: "auto", 
-                    slideToClickedSlide: true, // <-- ΑΥΤΟ ΚΑΝΕΙ ΤΟ ΚΛΙΚ ΣΤΙΣ ΦΩΤΟΓΡΑΦΙΕΣ ΝΑ ΓΥΡΝΑΕΙ ΤΗΝ ΚΑΡΤΑ
+                    slideToClickedSlide: true, 
                     keyboard: { enabled: true },
                     coverflowEffect: { 
                         rotate: 20, 
                         stretch: 0, 
                         depth: 200, 
                         modifier: 1, 
-                        slideShadows: false // <-- ΣΒΗΣΤΗΚΑΝ ΟΙ ΒΑΡΙΕΣ ΣΚΙΕΣ ΠΟΥ ΚΟΛΛΟΥΣΑΝ ΤΗΝ ΚΑΡΤΑ ΓΡΑΦΙΚΩΝ
+                        slideShadows: false 
                     }, 
                     pagination: { el: ".swiper-pagination", clickable: true }, 
                     loop: true, 
