@@ -31,79 +31,90 @@
 </head>
 <body class="antialiased scroll-smooth">
 
-    <nav class="glass fixed w-full top-0 z-50 p-5 transition-all duration-300">
+    <nav class="glass fixed w-full top-0 z-50 p-4 md:p-5 transition-all duration-300">
         <div class="max-w-7xl mx-auto flex justify-between items-center w-full">
             
-            <div class="w-1/4">
-                <h1 class="text-3xl font-black italic tracking-tighter cursor-pointer hover:scale-105 transition-transform inline-block" onclick="window.playV8Sound(); window.scrollTo(0,0)">AUDI <span class="gta-text">RS</span></h1>
+            <div class="w-1/2 md:w-1/4">
+                <h1 class="text-2xl md:text-3xl font-black italic tracking-tighter cursor-pointer hover:scale-105 transition-transform inline-block" onclick="window.playV8Sound(); window.scrollTo(0,0)">AUDI <span class="gta-text">RS</span></h1>
             </div>
 
             <div class="w-2/4 flex justify-center hidden md:flex">
                 <ul class="flex space-x-6 text-[10px] lg:text-xs font-bold uppercase tracking-widest text-zinc-300 items-center">
                     <li><a href="#garage" class="hover:text-[#00e5ff] transition-colors">Garage</a></li>
                     <li><a href="#specs" class="hover:text-[#ff007a] transition-colors">Specs</a></li>
-                    
                     <li id="nav-reservations" class="hidden"><a href="#my-reservations" class="text-[#00e5ff] hover:brightness-125 transition-all font-black">My Reservations</a></li>
-                    
                     <li><a href="#location" class="hover:text-white transition-colors">Find Us</a></li>
                     <li><a onclick="window.openTestDriveModal()" class="cursor-pointer bg-white text-black px-4 py-2 rounded-full hover:bg-[#ff007a] hover:text-white transition-all duration-300">TEST DRIVE</a></li>
                 </ul>
             </div>
 
-            <div class="w-1/4 flex justify-end items-center" id="auth-menu">
-                <!-- Auth Content -->
+            <div class="w-1/2 md:w-1/4 flex justify-end items-center space-x-4">
+                <div id="auth-menu">
+                    </div>
+                <button onclick="window.openMobileMenu()" class="md:hidden text-white hover:text-[#00e5ff] transition-colors focus:outline-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-8 h-8">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5M12 17.25h8.25" />
+                    </svg>
+                </button>
             </div>
         </div>
     </nav>
+
+    <div id="mobile-menu" class="fixed inset-0 z-[100] bg-[#09090b]/95 backdrop-blur-2xl transform translate-x-full transition-transform duration-300 md:hidden flex flex-col items-center justify-center space-y-8">
+        <button onclick="window.closeMobileMenu()" class="absolute top-6 right-6 text-zinc-500 hover:text-[#ff007a] text-5xl font-light focus:outline-none">&times;</button>
+        <a href="#garage" onclick="window.closeMobileMenu()" class="text-3xl font-black italic uppercase text-white hover:text-[#00e5ff] transition-colors">Garage</a>
+        <a href="#specs" onclick="window.closeMobileMenu()" class="text-3xl font-black italic uppercase text-white hover:text-[#ff007a] transition-colors">Specs</a>
+        <a href="#my-reservations" onclick="window.closeMobileMenu()" id="mobile-nav-reservations" class="text-3xl font-black italic uppercase text-[#00e5ff] hidden transition-colors">My Reservations</a>
+        <a href="#location" onclick="window.closeMobileMenu()" class="text-3xl font-black italic uppercase text-white hover:text-[#00e5ff] transition-colors">Find Us</a>
+        <a onclick="window.closeMobileMenu(); window.openTestDriveModal();" class="text-2xl font-black italic uppercase bg-white text-black px-10 py-4 rounded-full hover:bg-[#ff007a] hover:text-white transition-all mt-6 shadow-[0_0_20px_rgba(255,255,255,0.2)]">Test Drive</a>
+    </div>
 
     <header class="relative h-screen flex items-center justify-center overflow-hidden">
         <div class="absolute inset-0 z-0 opacity-40 bg-[url('https://images.unsplash.com/photo-1580273916550-e323be2ae537?q=80&w=2000&auto=format&fit=crop')] bg-cover bg-center bg-fixed"></div>
         <div class="absolute inset-0 z-0 bg-gradient-to-b from-transparent via-[#09090b]/80 to-[#09090b]"></div>
         <div class="relative z-10 text-center px-4" data-aos="zoom-out" data-aos-duration="1500">
-            <p class="text-[#00e5ff] font-bold tracking-[0.3em] uppercase mb-4">Welcome to AUDI</p>
-            <h2 class="text-7xl md:text-9xl font-black italic uppercase mb-2 gta-text leading-none">RULE THE<br>STREETS</h2>
-            <button onclick="window.playV8Sound(); document.getElementById('garage').scrollIntoView({behavior: 'smooth'})" class="mt-10 px-10 py-4 bg-white text-black font-black uppercase tracking-widest rounded-full hover:scale-110 transition-all">Start Engine</button>
+            <p class="text-[#00e5ff] font-bold tracking-[0.3em] uppercase mb-4 text-xs md:text-base">Welcome to AUDI</p>
+            <h2 class="text-6xl md:text-9xl font-black italic uppercase mb-2 gta-text leading-none">RULE THE<br>STREETS</h2>
+            <button onclick="window.playV8Sound(); document.getElementById('garage').scrollIntoView({behavior: 'smooth'})" class="mt-10 px-8 py-3 md:px-10 md:py-4 bg-white text-black font-black uppercase tracking-widest rounded-full hover:scale-110 transition-all text-sm md:text-base shadow-[0_0_20px_rgba(255,255,255,0.2)]">Start Engine</button>
         </div>
     </header>
 
-    <section class="py-24 pt-32" id="garage">
-        <div class="max-w-7xl mx-auto px-4 mb-16 text-center" data-aos="fade-up">
-            <h2 class="text-4xl md:text-6xl font-black italic uppercase">The <span class="text-[#ff007a]">Syndicate</span></h2>
+    <section class="py-16 md:py-24 pt-24 md:pt-32" id="garage">
+        <div class="max-w-7xl mx-auto px-4 mb-10 md:mb-16 text-center" data-aos="fade-up">
+            <h2 class="text-3xl md:text-6xl font-black italic uppercase">The <span class="text-[#ff007a]">Syndicate</span></h2>
         </div>
         <div class="max-w-7xl mx-auto px-4">
-            <div id="car-container" class="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-16">
+            <div id="car-container" class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-16">
                 <div id="loader" class="text-center col-span-full py-20 text-[#00e5ff] font-bold animate-pulse">[ ACCESSING SECURE SERVER... ]</div>
             </div>
         </div>
     </section>
 
-    <!-- SECTION: MY RESERVATIONS -->
-    <section id="my-reservations" class="py-24 bg-zinc-950 hidden">
+    <section id="my-reservations" class="py-16 md:py-24 bg-zinc-950 hidden">
         <div class="max-w-5xl mx-auto px-4">
-            <div class="mb-12" data-aos="fade-right">
-                <h2 class="text-4xl font-black italic uppercase mb-2">My <span class="gta-text">Reservations</span></h2>
-                <p class="text-zinc-500">Εδώ μπορείς να δεις όλα τα προγραμματισμένα Test Drives σου.</p>
+            <div class="mb-10 md:mb-12" data-aos="fade-right">
+                <h2 class="text-3xl md:text-4xl font-black italic uppercase mb-2">My <span class="gta-text">Reservations</span></h2>
+                <p class="text-zinc-500 text-sm md:text-base">Εδώ μπορείς να δεις όλα τα προγραμματισμένα Test Drives σου.</p>
             </div>
             <div id="reservations-list" class="grid grid-cols-1 gap-6">
-                <div class="text-zinc-600 italic">Φόρτωση κρατήσεων...</div>
+                <div class="text-zinc-600 italic text-sm">Φόρτωση κρατήσεων...</div>
             </div>
         </div>
     </section>
 
-    <!-- SECTION: LOCATION -->
-    <section id="location" class="py-24 relative">
-        <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-3 gap-12 items-center">
+    <section id="location" class="py-16 md:py-24 relative">
+        <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-3 gap-10 md:gap-12 items-center">
             <div data-aos="fade-right">
-                <h2 class="text-4xl font-black italic uppercase mb-6">Visit <span class="text-[#00e5ff]">Headquarters</span></h2>
-                <p class="text-zinc-400 mb-8 leading-relaxed">Βρισκόμαστε στην καρδιά της αυτοκίνησης. Επισκέψου μας για μια exclusive ξενάγηση στο μέλλον της Audi.</p>
+                <h2 class="text-3xl md:text-4xl font-black italic uppercase mb-4 md:mb-6">Visit <span class="text-[#00e5ff]">Headquarters</span></h2>
+                <p class="text-zinc-400 mb-6 md:mb-8 leading-relaxed text-sm md:text-base">Βρισκόμαστε στην καρδιά της αυτοκίνησης. Επισκέψου μας για μια exclusive ξενάγηση στο μέλλον της Audi.</p>
                 <div class="space-y-4">
                     <div class="flex items-start space-x-4">
-                        <span class="text-[#ff007a] font-bold">ADDRESS:</span>
-                        <span class="text-zinc-300">Ettinger Str. 70, 85057<br>Ingolstadt, Germany</span>
+                        <span class="text-[#ff007a] font-bold text-sm md:text-base">ADDRESS:</span>
+                        <span class="text-zinc-300 text-sm md:text-base">Ettinger Str. 70, 85057<br>Ingolstadt, Germany</span>
                     </div>
                 </div>
             </div>
-            <div class="lg:col-span-2 h-[450px] rounded-2xl overflow-hidden gta-border" data-aos="zoom-in">
+            <div class="lg:col-span-2 h-[300px] md:h-[450px] rounded-2xl overflow-hidden gta-border" data-aos="zoom-in">
                 <iframe 
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2657.4334335011736!2d11.414166276856082!3d48.784196905307775!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x479f030045555555%3A0x6bacc27b-d1a0-4e6c-9640-932a9aacb378!2sAudi%20AG!5e0!3m2!1sel!2sgr!4v1715700000000!5m2!1sel!2sgr" 
                     width="100%" height="100%" style="border:0; filter: invert(90%) hue-rotate(180deg) brightness(0.8) contrast(1.2);" allowfullscreen="" loading="lazy">
@@ -112,12 +123,11 @@
         </div>
     </section>
 
-    <!-- MODALS -->
-    <div id="authModal" class="fixed inset-0 z-[300] flex items-center justify-center hidden opacity-0 transition-opacity duration-300">
+    <div id="authModal" class="fixed inset-0 z-[400] flex items-center justify-center hidden opacity-0 transition-opacity duration-300">
         <div class="absolute inset-0 bg-black/90 backdrop-blur-md" onclick="window.closeAuthModal()"></div>
-        <div class="relative glass border border-[#00e5ff] p-8 rounded-2xl max-w-sm w-full mx-4 shadow-[0_0_50px_rgba(0,229,255,0.2)] transform scale-95 transition-transform duration-300" id="authContent">
-            <button onclick="window.closeAuthModal()" class="absolute top-4 right-4 text-zinc-500 hover:text-[#00e5ff] text-2xl">×</button>
-            <div class="text-center mb-6"><h2 id="authTitle" class="text-3xl font-black italic uppercase gta-text">ACCESS SYSTEM</h2></div>
+        <div class="relative glass border border-[#00e5ff] p-6 md:p-8 rounded-2xl max-w-sm w-full mx-4 shadow-[0_0_50px_rgba(0,229,255,0.2)] transform scale-95 transition-transform duration-300" id="authContent">
+            <button onclick="window.closeAuthModal()" class="absolute top-4 right-4 text-zinc-500 hover:text-[#00e5ff] text-3xl focus:outline-none">&times;</button>
+            <div class="text-center mb-6 mt-2"><h2 id="authTitle" class="text-2xl md:text-3xl font-black italic uppercase gta-text">ACCESS SYSTEM</h2></div>
             <form id="authForm" class="space-y-4">
                 <div><label class="form-label">Email</label><input type="email" id="authEmail" required class="form-input" placeholder="driver@audi.com"></div>
                 <div><label class="form-label">Password</label><input type="password" id="authPassword" required class="form-input" placeholder="********"></div>
@@ -130,25 +140,31 @@
         </div>
     </div>
 
-    <div id="testDriveModal" class="fixed inset-0 z-[200] hidden opacity-0 transition-opacity duration-300 flex items-center justify-center bg-black/95 backdrop-blur-xl overflow-y-auto pt-24 pb-10 px-4">
-        <div class="relative glass border border-[#ff007a] rounded-2xl w-full max-w-4xl p-8 transform scale-95 transition-transform duration-300 shadow-[0_0_50px_rgba(255,0,122,0.15)] my-auto" id="testDriveContent">
-            <button onclick="window.closeTestDriveModal()" class="absolute top-4 right-6 text-zinc-500 hover:text-[#ff007a] text-4xl font-light transition-colors">×</button>
-            <div class="text-center mb-10">
-                <p class="text-[#00e5ff] tracking-[0.2em] text-sm font-bold uppercase mb-2">Experience The Thrill</p>
-                <h2 class="text-4xl md:text-5xl font-black italic uppercase gta-text">BOOK A TEST DRIVE</h2>
+    <div id="testDriveModal" class="fixed inset-0 z-[200] hidden opacity-0 transition-opacity duration-300 flex items-center justify-center bg-black/95 backdrop-blur-xl overflow-y-auto pt-20 pb-10 px-4">
+        <div class="relative glass border border-[#ff007a] rounded-2xl w-full max-w-4xl p-6 md:p-8 transform scale-95 transition-transform duration-300 shadow-[0_0_50px_rgba(255,0,122,0.15)] my-auto" id="testDriveContent">
+            <button onclick="window.closeTestDriveModal()" class="absolute top-4 right-6 text-zinc-500 hover:text-[#ff007a] text-4xl font-light transition-colors focus:outline-none">&times;</button>
+            <div class="text-center mb-8 md:mb-10 mt-4 md:mt-0">
+                <p class="text-[#00e5ff] tracking-[0.2em] text-xs md:text-sm font-bold uppercase mb-2">Experience The Thrill</p>
+                <h2 class="text-3xl md:text-5xl font-black italic uppercase gta-text">BOOK A TEST DRIVE</h2>
             </div>
-            <form id="tdForm" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <form id="tdForm" class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
                 <div class="space-y-4">
-                    <h4 class="text-white font-bold uppercase border-b border-zinc-800 pb-2 mb-4">Προσωπικα Στοιχεια</h4>
-                    <div class="flex gap-4">
-                        <div class="w-1/2"><label class="form-label">Ονομα</label><input type="text" id="td-fname" required class="form-input"></div>
-                        <div class="w-1/2"><label class="form-label">Επωνυμο</label><input type="text" id="td-lname" required class="form-input"></div>
+                    <h4 class="text-white font-bold uppercase border-b border-zinc-800 pb-2 mb-4 text-sm md:text-base">Προσωπικα Στοιχεια</h4>
+                    <div class="flex flex-col md:flex-row gap-4">
+                        <div class="w-full md:w-1/2"><label class="form-label">Ονομα</label><input type="text" id="td-fname" required class="form-input"></div>
+                        <div class="w-full md:w-1/2"><label class="form-label">Επωνυμο</label><input type="text" id="td-lname" required class="form-input"></div>
                     </div>
+                    <div><label class="form-label">Διευθυνση</label><input type="text" id="td-address" required class="form-input" placeholder="Οδός & Αριθμός"></div>
+                    <div><label class="form-label">Τ.Κ.</label><input type="text" id="td-zip" required class="form-input" pattern="[0-9]{5}"></div>
                     <div><label class="form-label">Email</label><input type="email" id="td-email" required class="form-input"></div>
-                    <div><label class="form-label">Κινητο</label><input type="tel" id="td-mobile" required class="form-input"></div>
                 </div>
+
                 <div class="space-y-4">
-                    <h4 class="text-white font-bold uppercase border-b border-zinc-800 pb-2 mb-4">Στοιχεια Κρατησης</h4>
+                    <h4 class="text-white font-bold uppercase border-b border-zinc-800 pb-2 mb-4 text-sm md:text-base">Στοιχεια Κρατησης</h4>
+                    <div class="flex flex-col md:flex-row gap-4">
+                        <div class="w-full md:w-1/2"><label class="form-label">Κινητο</label><input type="tel" id="td-mobile" required class="form-input" placeholder="69..."></div>
+                        <div class="w-full md:w-1/2"><label class="form-label">Σταθερο</label><input type="tel" id="td-phone" class="form-input"></div>
+                    </div>
                     <div><label class="form-label">Επιλογη Μοντελου</label>
                         <select id="td-model" required class="form-input bg-zinc-900">
                             <option value="Audi RS6 Avant Performance">Audi RS6 Avant Performance</option>
@@ -157,29 +173,27 @@
                             <option value="Audi RS Q8">Audi RS Q8</option>
                         </select>
                     </div>
-                    <div class="flex gap-4">
-                        <div class="w-1/2"><label class="form-label">Ημερομηνια</label><input type="date" required id="datePicker" class="form-input"></div>
-                        <div class="w-1/2"><label class="form-label">Ωρα</label><select id="td-time" required class="form-input bg-zinc-900"><option value="10:00">10:00</option><option value="14:00">14:00</option><option value="18:00">18:00</option></select></div>
+                    <div class="flex flex-col md:flex-row gap-4">
+                        <div class="w-full md:w-1/2"><label class="form-label">Ημερομηνια</label><input type="date" required id="datePicker" class="form-input"></div>
+                        <div class="w-full md:w-1/2"><label class="form-label">Ωρα</label><select id="td-time" required class="form-input bg-zinc-900"><option value="10:00">10:00</option><option value="14:00">14:00</option><option value="18:00">18:00</option></select></div>
                     </div>
                 </div>
-                <button type="submit" class="col-span-full bg-white text-black font-black py-4 rounded-xl hover:bg-[#00e5ff] transition-all mt-4">ΕΠΙΒΕΒΑΙΩΣΗ TEST DRIVE</button>
+                <button type="submit" class="col-span-full bg-white text-black font-black py-4 rounded-xl hover:bg-[#00e5ff] transition-all mt-4 shadow-[0_0_20px_rgba(255,255,255,0.2)]">ΕΠΙΒΕΒΑΙΩΣΗ TEST DRIVE</button>
             </form>
         </div>
     </div>
 
-    <!-- CAR MODAL -->
-    <div id="carModal" class="fixed inset-0 z-[100] flex items-center justify-center hidden opacity-0 transition-opacity duration-300">
+    <div id="carModal" class="fixed inset-0 z-[300] flex items-center justify-center hidden opacity-0 transition-opacity duration-300">
         <div class="absolute inset-0 bg-black/80 backdrop-blur-md" onclick="window.closeModal()"></div>
-        <div class="relative glass border border-[#00e5ff] p-8 rounded-2xl max-w-lg w-full mx-4 shadow-[0_0_50px_rgba(0,229,255,0.2)] transform scale-95 transition-transform duration-300" id="modalContent"></div>
+        <div class="relative glass border border-[#00e5ff] p-6 md:p-8 rounded-2xl max-w-lg w-full mx-4 shadow-[0_0_50px_rgba(0,229,255,0.2)] transform scale-95 transition-transform duration-300" id="modalContent"></div>
     </div>
 
-    <footer class="glass py-8 border-t border-zinc-800 text-center">
-        <p class="uppercase tracking-widest text-xs text-zinc-500 font-bold">© 2026 AUDI RS | HEADQUARTERS: INGOLSTADT, GERMANY</p>
+    <footer class="glass py-6 md:py-8 border-t border-zinc-800 text-center px-4">
+        <p class="uppercase tracking-widest text-[10px] md:text-xs text-zinc-500 font-bold">© 2026 AUDI RS | HEADQUARTERS: INGOLSTADT, GERMANY</p>
     </footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        // ΔΙΟΡΘΩΜΕΝΑ SCRIPTS - ΟΛΑ ΤΑ BRACKETS ΣΤΗ ΘΕΣΗ ΤΟΥΣ
         AOS.init({ once: true });
         const today = new Date().toISOString().split('T')[0];
         document.getElementById("datePicker").setAttribute('min', today);
@@ -187,59 +201,32 @@
         const v8EngineSound = new Audio('https://cdn.freesound.org/previews/173/173934_2724244-lq.mp3');
         window.playV8Sound = function() { try { v8EngineSound.currentTime = 0; v8EngineSound.play(); } catch (err) {} };
 
+        // MOBILE MENU JS
+        window.openMobileMenu = () => { document.getElementById('mobile-menu').classList.remove('translate-x-full'); };
+        window.closeMobileMenu = () => { document.getElementById('mobile-menu').classList.add('translate-x-full'); };
+
         window.openAuthModal = () => { 
+            window.closeMobileMenu(); // Κλείνει το mobile menu αν είναι ανοιχτό
             document.getElementById('authModal').classList.remove('hidden'); 
-            setTimeout(() => { 
-                document.getElementById('authModal').classList.remove('opacity-0'); 
-                document.getElementById('authContent').classList.add('scale-100'); 
-            }, 10); 
+            setTimeout(() => { document.getElementById('authModal').classList.remove('opacity-0'); document.getElementById('authContent').classList.add('scale-100'); }, 10); 
         };
+        window.closeAuthModal = () => { document.getElementById('authModal').classList.add('opacity-0'); document.getElementById('authContent').classList.remove('scale-100'); setTimeout(() => { document.getElementById('authModal').classList.add('hidden'); }, 300); };
         
-        window.closeAuthModal = () => { 
-            document.getElementById('authModal').classList.add('opacity-0'); 
-            document.getElementById('authContent').classList.remove('scale-100'); 
-            setTimeout(() => { 
-                document.getElementById('authModal').classList.add('hidden'); 
-            }, 300); 
-        };
-        
-        window.openTestDriveModal = () => { 
-            document.getElementById('testDriveModal').classList.remove('hidden'); 
-            setTimeout(() => { 
-                document.getElementById('testDriveModal').classList.remove('opacity-0'); 
-                document.getElementById('testDriveContent').classList.add('scale-100');
-            }, 10); 
-        };
-        
-        window.closeTestDriveModal = () => { 
-            document.getElementById('testDriveModal').classList.add('opacity-0'); 
-            document.getElementById('testDriveContent').classList.remove('scale-100');
-            setTimeout(() => { 
-                document.getElementById('testDriveModal').classList.add('hidden'); 
-            }, 300); 
-        };
+        window.openTestDriveModal = () => { document.getElementById('testDriveModal').classList.remove('hidden'); setTimeout(() => { document.getElementById('testDriveModal').classList.remove('opacity-0'); document.getElementById('testDriveContent').classList.add('scale-100'); }, 10); };
+        window.closeTestDriveModal = () => { document.getElementById('testDriveModal').classList.add('opacity-0'); document.getElementById('testDriveContent').classList.remove('scale-100'); setTimeout(() => { document.getElementById('testDriveModal').classList.add('hidden'); }, 300); };
         
         window.openModal = function(carName, carHp) {
             const modal = document.getElementById('carModal');
             const content = document.getElementById('modalContent');
-            content.innerHTML = `<div class="text-center"><p class="text-[#00e5ff] tracking-[0.2em] text-xs font-bold uppercase mb-2">Vehicle Specs Checked</p><h2 class="text-4xl font-black italic uppercase mb-4 gta-text">TARGET LOCKED</h2><p class="text-zinc-300 text-lg mb-6">Επέλεξες το <span class="text-white font-black">${carName}</span> με ${carHp}. Έτοιμος να το κάνεις δικό σου;</p><button onclick="window.closeModal(); window.openTestDriveModal();" class="w-full bg-[#ff007a] text-white font-black uppercase tracking-widest px-6 py-4 rounded-xl hover:bg-white hover:text-black transition-colors">BOOK TEST DRIVE NOW</button></div>`;
+            content.innerHTML = `<div class="text-center"><p class="text-[#00e5ff] tracking-[0.2em] text-xs font-bold uppercase mb-2">Vehicle Specs Checked</p><h2 class="text-3xl md:text-4xl font-black italic uppercase mb-4 gta-text">TARGET LOCKED</h2><p class="text-zinc-300 text-sm md:text-lg mb-6">Επέλεξες το <span class="text-white font-black">${carName}</span> με ${carHp}. Έτοιμος να το κάνεις δικό σου;</p><button onclick="window.closeModal(); window.openTestDriveModal();" class="w-full bg-[#ff007a] text-white font-black uppercase tracking-widest px-6 py-4 rounded-xl hover:bg-white hover:text-black transition-colors">BOOK TEST DRIVE</button></div>`;
             modal.classList.remove('hidden');
-            setTimeout(() => { 
-                modal.classList.remove('opacity-0'); 
-                content.classList.remove('scale-95'); 
-                content.classList.add('scale-100'); 
-            }, 10);
+            setTimeout(() => { modal.classList.remove('opacity-0'); content.classList.remove('scale-95'); content.classList.add('scale-100'); }, 10);
         }
-        
         window.closeModal = function() {
             const modal = document.getElementById('carModal');
             const content = document.getElementById('modalContent');
-            modal.classList.add('opacity-0'); 
-            content.classList.remove('scale-100'); 
-            content.classList.add('scale-95');
-            setTimeout(() => { 
-                modal.classList.add('hidden'); 
-            }, 300);
+            modal.classList.add('opacity-0'); content.classList.remove('scale-100'); content.classList.add('scale-95');
+            setTimeout(() => { modal.classList.add('hidden'); }, 300);
         }
         
         let isLoginMode = true;
@@ -251,7 +238,6 @@
         };
     </script>
 
-    <!-- FIREBASE LOGIC -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
         import { getFirestore, collection, addDoc, query, where, getDocs, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
@@ -274,18 +260,21 @@
         onAuthStateChanged(auth, async (user) => {
             const authMenu = document.getElementById('auth-menu');
             const navRes = document.getElementById('nav-reservations');
+            const mobileNavRes = document.getElementById('mobile-nav-reservations');
             const resSection = document.getElementById('my-reservations');
 
             if (user) {
-                authMenu.innerHTML = `<div class="flex items-center space-x-4"><span class="text-zinc-400 text-[10px] hidden lg:inline font-medium">${user.email}</span><a id="logoutBtn" class="cursor-pointer text-[10px] hover:text-[#ff007a] font-bold border border-zinc-700 px-3 py-1 rounded">LOGOUT</a></div>`;
+                authMenu.innerHTML = `<div class="flex items-center space-x-2 md:space-x-4"><span class="text-zinc-400 text-[10px] hidden lg:inline font-medium">${user.email}</span><a id="logoutBtn" class="cursor-pointer text-[10px] md:text-xs hover:text-[#ff007a] font-bold border border-zinc-700 px-2 py-1 md:px-3 md:py-1 rounded transition-colors">LOGOUT</a></div>`;
                 navRes.classList.remove('hidden');
+                mobileNavRes.classList.remove('hidden'); // Εμφανίζεται και στο mobile menu
                 resSection.classList.remove('hidden');
                 document.getElementById('td-email').value = user.email;
                 loadUserReservations(user.email);
                 document.getElementById('logoutBtn').addEventListener('click', () => signOut(auth));
             } else {
-                authMenu.innerHTML = `<a onclick="window.openAuthModal()" class="cursor-pointer text-white hover:text-[#00e5ff]"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-7 h-7"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" /></svg></a>`;
+                authMenu.innerHTML = `<a onclick="window.openAuthModal()" class="cursor-pointer text-white hover:text-[#00e5ff] transition-transform hover:scale-110"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 md:w-7 md:h-7"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" /></svg></a>`;
                 navRes.classList.add('hidden');
+                mobileNavRes.classList.add('hidden');
                 resSection.classList.add('hidden');
             }
         });
@@ -295,15 +284,15 @@
             const q = query(collection(db, "test_drives"), where("email", "==", email));
             const querySnapshot = await getDocs(q);
             if (querySnapshot.empty) {
-                list.innerHTML = `<div class="p-8 glass text-center text-zinc-500">Δεν βρέθηκαν κρατήσεις.</div>`;
+                list.innerHTML = `<div class="p-6 glass text-center text-zinc-500 text-sm rounded-xl">Δεν βρέθηκαν κρατήσεις.</div>`;
                 return;
             }
             list.innerHTML = "";
             querySnapshot.forEach((doc) => {
                 const data = doc.data();
                 const card = document.createElement('div');
-                card.className = "res-card p-6 rounded-xl flex flex-col md:flex-row justify-between items-center gap-4";
-                card.innerHTML = `<div class="text-center md:text-left"><p class="text-xs text-[#00e5ff] font-bold uppercase tracking-widest mb-1">Vehicle Model</p><h4 class="text-2xl font-black italic uppercase">${data.carModel}</h4></div><div class="flex gap-8 text-center"><div><p class="text-[10px] text-zinc-500 uppercase">Ημερομηνια</p><p class="font-bold text-white">${data.date}</p></div><div><p class="text-[10px] text-zinc-500 uppercase">Ωρα</p><p class="font-bold text-white">${data.time}</p></div></div><div class="text-xs text-zinc-500">ID: ${doc.id.substring(0,8)}...</div>`;
+                card.className = "res-card p-5 md:p-6 rounded-xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border border-zinc-800";
+                card.innerHTML = `<div class="text-left"><p class="text-[10px] md:text-xs text-[#00e5ff] font-bold uppercase tracking-widest mb-1">Vehicle Model</p><h4 class="text-xl md:text-2xl font-black italic uppercase text-white">${data.carModel}</h4></div><div class="flex gap-6 md:gap-8 w-full md:w-auto"><div class="flex-1 md:flex-none"><p class="text-[10px] text-zinc-500 uppercase">Ημερομηνια</p><p class="font-bold text-white text-sm md:text-base">${data.date}</p></div><div class="flex-1 md:flex-none"><p class="text-[10px] text-zinc-500 uppercase">Ωρα</p><p class="font-bold text-white text-sm md:text-base">${data.time}</p></div></div><div class="text-[10px] text-zinc-600 self-end md:self-auto">ID: ${doc.id.substring(0,8)}...</div>`;
                 list.appendChild(card);
             });
         }
@@ -334,13 +323,14 @@
                     zipCode: document.getElementById('td-zip').value,
                     email: document.getElementById('td-email').value,
                     mobile: document.getElementById('td-mobile').value,
+                    phone: document.getElementById('td-phone').value,
                     carModel: document.getElementById('td-model').value,
                     date: document.getElementById('datePicker').value,
                     time: document.getElementById('td-time').value,
                     timestamp: serverTimestamp()
                 });
                 
-                document.getElementById('testDriveContent').innerHTML = `<div class="text-center py-10"><div class="text-[#00e5ff] text-6xl mb-4 animate-bounce">✓</div><h2 class="text-4xl md:text-5xl font-black italic uppercase gta-text mb-4">RESERVATION CONFIRMED</h2><p class="text-zinc-300 text-lg mb-8 max-w-md mx-auto">Το ραντεβού καταχωρήθηκε επιτυχώς! Έλεγξε το My Reservations.</p><button onclick="window.location.reload()" class="bg-white text-black font-black uppercase tracking-widest px-8 py-3 rounded-full hover:bg-[#ff007a] hover:text-white transition-all">ΕΠΙΣΤΡΟΦΗ</button></div>`;
+                document.getElementById('testDriveContent').innerHTML = `<div class="text-center py-10"><div class="text-[#00e5ff] text-5xl md:text-6xl mb-4 animate-bounce">✓</div><h2 class="text-3xl md:text-5xl font-black italic uppercase gta-text mb-4">RESERVATION CONFIRMED</h2><p class="text-zinc-300 text-sm md:text-lg mb-8 max-w-md mx-auto">Το ραντεβού καταχωρήθηκε επιτυχώς! Έλεγξε το My Reservations.</p><button onclick="window.location.reload()" class="bg-white text-black font-black uppercase tracking-widest px-8 py-3 rounded-full hover:bg-[#ff007a] hover:text-white transition-all text-sm">ΕΠΙΣΤΡΟΦΗ</button></div>`;
             } catch (error) {
                 console.error("Σφάλμα Firebase: ", error);
                 alert("Σφάλμα κατά την αποστολή.");
@@ -350,30 +340,10 @@
         });
 
         const cars = [
-            { 
-                name: "RS6 Avant", 
-                hp: "630 PS", 
-                type: "Wagon", 
-                img: "https://4kwallpapers.com/images/wallpapers/audi-rs-6-avant-5120x2880-9439.jpg" 
-            },
-            { 
-                name: "RS7 Sportback", 
-                hp: "600 PS", 
-                type: "Coupe", 
-                img: "https://images.unsplash.com/photo-1606152421802-db97b9c7a11b?q=80&w=800&auto=format&fit=crop" 
-            },
-            { 
-                name: "RS e-tron GT", 
-                hp: "646 PS", 
-                type: "Electric", 
-                img: "https://4kwallpapers.com/images/wallpapers/audi-rs-e-tron-gt-3840x2160-17295.jpg" 
-            },
-            { 
-                name: "RS Q8", 
-                hp: "600 PS", 
-                type: "SUV", 
-                img: "https://cdn.motor1.com/images/mgl/G33ZZ1/s3/audi-rs-q8-signature-edition-by-abt.jpg" 
-            }
+            { name: "RS6 Avant", hp: "630 PS", type: "Wagon", img: "https://4kwallpapers.com/images/wallpapers/audi-rs-6-avant-5120x2880-9439.jpg" },
+            { name: "RS7 Sportback", hp: "600 PS", type: "Coupe", img: "https://images.unsplash.com/photo-1606152421802-db97b9c7a11b?q=80&w=800&auto=format&fit=crop" },
+            { name: "RS e-tron GT", hp: "646 PS", type: "Electric", img: "https://4kwallpapers.com/images/wallpapers/audi-rs-e-tron-gt-3840x2160-17295.jpg" },
+            { name: "RS Q8", hp: "600 PS", type: "SUV", img: "https://cdn.motor1.com/images/mgl/G33ZZ1/s3/audi-rs-q8-signature-edition-by-abt.jpg" }
         ];
         
         const container = document.getElementById('car-container');
@@ -382,7 +352,7 @@
             const card = document.createElement('div');
             card.className = "car-card gta-border rounded-2xl overflow-hidden flex flex-col bg-[#0f0f0f]";
             card.setAttribute('data-aos', i % 2 === 0 ? 'fade-right' : 'fade-left');
-            card.innerHTML = `<div class="h-64 relative"><img src="${car.img}" class="absolute inset-0 w-full h-full object-cover z-10"><span class="absolute top-4 right-4 z-20 bg-[#ff007a] text-white text-[10px] font-black px-3 py-1 rounded-full uppercase">${car.type}</span></div><div class="p-6 flex flex-col justify-between flex-1"><h3 class="text-3xl font-black italic uppercase gta-text">${car.name}</h3><div class="flex justify-between items-end border-t border-zinc-800 pt-4 mt-4"><div><p class="text-[10px] text-zinc-500 uppercase">Power</p><p class="text-2xl font-black">${car.hp}</p></div><button onclick="window.openModal('${car.name}', '${car.hp}')" class="bg-white text-black text-[10px] font-black px-5 py-2 rounded-full hover:bg-[#00e5ff] transition-all">Επιλογη</button></div></div>`;
+            card.innerHTML = `<div class="h-56 md:h-64 relative"><img src="${car.img}" class="absolute inset-0 w-full h-full object-cover z-10"><span class="absolute top-4 right-4 z-20 bg-[#ff007a] text-white text-[10px] font-black px-3 py-1 rounded-full uppercase shadow-[0_0_10px_#ff007a]">${car.type}</span></div><div class="p-5 md:p-6 flex flex-col justify-between flex-1"><h3 class="text-2xl md:text-3xl font-black italic uppercase gta-text">${car.name}</h3><div class="flex justify-between items-end border-t border-zinc-800 pt-4 mt-4"><div><p class="text-[10px] text-zinc-500 uppercase">Power</p><p class="text-xl md:text-2xl font-black text-white">${car.hp}</p></div><button onclick="window.openModal('${car.name}', '${car.hp}')" class="bg-white text-black text-[10px] font-black px-5 py-2 md:px-6 md:py-3 rounded-full hover:bg-[#00e5ff] transition-all shadow-[0_0_10px_rgba(255,255,255,0.1)]">Επιλογη</button></div></div>`;
             container.appendChild(card);
         });
     </script>
